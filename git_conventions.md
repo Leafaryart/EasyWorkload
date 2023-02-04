@@ -41,7 +41,10 @@ For example, if your commit is about adding a new feature then you start your me
 
 ### Message Body of Commit
 When you have written down what kind of commit you're making, write a brief header summarizing what you did in less than 50 characters. For example:
-> git commit -m "feat: added log-in functionality"
+> git commit -m "feature: added log-in functionality"
+
+If you've done multiple changes such that a single type of commit listed above won't be enough to explain the changes, use "|" to separate them. For example if you made both `docs` and `feat` changes:
+> git commit -m "feature: added log-in functionality | docs: documented log in"
 
 After that, write a more detailed description right afterwards.
-> git commit -m "feat: feat: added log-in functionality" -m "Created a login.java file in the src folder. It can accept credentials, check if credentials are valid, and can either accept or reject the credentials."
+> git commit -m "feature: feat: added log-in functionality" -m "Created a login.java file in the src folder. It can accept credentials, check if credentials are valid, and can either accept or reject the credentials."
