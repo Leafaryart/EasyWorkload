@@ -8,12 +8,11 @@ EasyWorkload is a desktop-based Java application meant to assist students in man
 ## Rules for Developers
 Please observe the following rules while working on the project:
 1. This project runs on Java SE JDK 19 provided by the Oracle Corporation.
-2. When working on the project, please refer to the software requirements specifications found in the following link: *to be added*.
+2. When working on the project, please refer to the software requirements specifications found in this repo.
 3. Strict Git conventions will be observed when performing commits, pushes, and pulls on the repository. Please refer to the **git_conventions.md** file found in the root folder of this repository.
 4. A strict coding style will be implemented. Pelase refer to **coding_conventions.md**.
-5. **When writing new code, do your work on a separate branch and not work on the main branch.** It is in our best interests to avoid manually merging 100+ files when there's a conflict. That happened to me before and it was not fun. Use your name as the name of your branch.
+5. **When writing new code, do your work on a separate branch and not work on the main branch.** It is in our best interests to avoid manually merging 100+ files when there's a conflict.
 6. Kindly write proper Java documentation must be observed so those who are unfamiliar about a particular part of the software will have a reference.
-7. Observe Java documentation
 
 ## Credits
 1. Ray Rafael Abenido (ray.abenido@obf.ateneo.edu, ray.abenido@gmail.com)
