@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
  * <p> As mentioned, for this class to be useful this needs to be extended by subclasses
  * because there is no 'one-size fits all' solution that can cater to every possible table.
  * Fortunately, most of the functions in this class can handle interactions with an SQLite
- * database well. Programmers only need to modify two functions: {code generateINSERTQuery()}
+ * database well. Programmers only need to write two functions: {code generateINSERTQuery()}
  * and {@code generateUPDATEQuery()}.
  * 
  * <p> These two functions must be overriden using the {@code @Override} token and tailored to
@@ -51,13 +51,7 @@ public class TableManager
     String tableName;
     String primaryKey;
     
-    public static void main (String[] args) {
-    	String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
-    	String tableName = "task_list";
-    	String primaryKey = "taskID";
-    	TableManager tm = new TableManager(tableName, connectionURL, primaryKey);
-    	tm.getAllRecords();
-    }
+
     
     /**
      * <p> Creates a {@code TableManager} instance that manages a specific table in a 
@@ -82,49 +76,6 @@ public class TableManager
             System.out.println("Failed to connect!");
             e.printStackTrace();
         }
-    }
-    
-    /* ========================================================================
-     * THESE TWO FUNCTIONS MUST BE OVERRIDEN BY THE EXTENDING CLASS TO BE USEFUL
-     * ======================================================================== 
-     */
-    
-    /**
-     * <p> A helper function to {@code insertRecord()}. It generates the INSERT Query
-     * that the aforementioned function will execute.
-     * 
-     * <p> Note on use: This function must be overridden by its subclasses to be tailored
-     * to the exact attributes of the table the subclass is managing. Meant to be used in tandem
-     * with {@code modifyRecords()}
-     * 
-     * @return query The INSERT statement to be executed.
-     * @see modifyRecords()
-     * @author Ray Rafael S. Abenido
-     */
-    
-    protected String generateINSERTQuery(int key, String title, String description) {
-    	String query = "INSERT INTO " + tableName + " VALUES (" + 
-    			Integer.toString(key) + ",'" + title + "','" + description +  "'" + ")";
-    	return query;
-    }
-    
-    /**
-     * <p> A helper function to {@code insertRecord()}. It generates the INSERT Query
-     * that the aforementioned function will execute.Meant to be used in tandem
-     * with {@code modifyRecords()}
-     * 
-     * <p> Note: This function must be overridden by its subclasses to be tailored
-     * to the exact attributes of the table the subclass is managing.
-     * 
-     * @return query The INSERT statement to be executed.
-     * @see modifyRecords()
-     * @author Ray Rafael S. Abenido
-     */
-    
-    protected String generateUPDATEQuery() {
-    	String query = "UPDATE " + tableName + " SET description = " + "'THIS IS FUN!'"
-    			+ " WHERE taskID = 2";
-    	return query;
     }
     
     /* ========================================================================
@@ -311,7 +262,7 @@ public class TableManager
      * @author Ray Rafael Abenido
      */
     protected String convertToSQLITEDateTime(LocalDateTime dateTime) {
-    	DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
+    	DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String formattedDateTime = dateTime.format(format);
     	return formattedDateTime;
     }
