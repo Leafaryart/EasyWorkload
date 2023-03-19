@@ -1,5 +1,17 @@
 package com.mycompany.umts;
 import java.awt.*;
+
+
+
+
+/**
+/**
+ * {@code MyRectangle}  class is where..... 
+ * 
+ * @author Marc Gerald Simeon
+ * @since release
+ * @version 1.0
+ */
 public class MyRectangle {
     private int x;
     private int y;
@@ -56,16 +68,16 @@ public class MyRectangle {
                  this.y >= other.getY() + other.getHeight());
     }
     public int isTouching(){
-        if(this.x+this.wid>=800){
+        if (this.x+this.wid>=800) {
             return 2;
         }
-        else if(this.x<=0){
+        else if (this.x<=0) {
             return 4;
         }
-        else if(this.y+this.hei>=600){
+        else if (this.y+this.hei>=600) {
             return 3;
         }
-        else if(this.y<=0){
+        else if (this.y<=0) {
             return 1;
         }
         return 5;

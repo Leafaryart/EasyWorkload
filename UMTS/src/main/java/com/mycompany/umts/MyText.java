@@ -1,7 +1,15 @@
-
 package com.mycompany.umts;
 
 import java.awt.*;
+
+/**
+/**
+ * {@code MyText}  class is where..
+ * 
+ * @author Marc Gerald Simeon
+ * @since release
+ * @version 1.0
+ */
 public class MyText {
     
     String string;

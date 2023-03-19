@@ -7,13 +7,21 @@ import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.*;
 
+/**
+/**
+ * {@code RectangleCanvas} class is where....
+ * @author Marc Gerald Simeon
+ * @since release
+ * @version 1.0
+ */
+
 public class RectangleCanvas extends JComponent{
     
     private int width;
     private int height;
     private Color bg;
     private MyRectangle rec;
-    private MyText task_name;
+    private MyText taskName;
     private MyText notes;
     private MyText notes2;
     private Timer timer;
@@ -39,15 +47,15 @@ public class RectangleCanvas extends JComponent{
         rec=new MyRectangle(0,0,1920,1080,100,100);
         
         //For the Header, TEDDDY LOOK HERE
-        task_name=new MyText(100,-200,-480,Color.WHITE, "Task Title");
+        taskName=new MyText(100,-200,-480,Color.WHITE, "Task Title");
         notes=new MyText(60,180,-340,Color.WHITE, "Priority");
         notes2=new MyText(60,180,-240,Color.WHITE, "Due Date");
         //For the Header, TEDDDY LOOK HERE
         
-        JLabel header = new JLabel(task_name.getString(), SwingConstants.CENTER);
-        header.setForeground(task_name.getColor());
-        header.setBounds(task_name.getX(),task_name.getY(),wid,hei);
-        header.setFont(new Font("Impact", Font.PLAIN, task_name.getSize()));
+        JLabel header = new JLabel(taskName.getString(), SwingConstants.CENTER);
+        header.setForeground(taskName.getColor());
+        header.setBounds(taskName.getX(),taskName.getY(),wid,hei);
+        header.setFont(new Font("Impact", Font.PLAIN, taskName.getSize()));
         frame.add(header);
         
         //For the Attributes Notes of the Task
@@ -103,7 +111,7 @@ public class RectangleCanvas extends JComponent{
     ActionListener tp = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 
-                task_name.setString("Left");
+                taskName.setString("Left");
                 frame.add(header);
                 rec.Vroom();
                 
@@ -114,7 +122,7 @@ public class RectangleCanvas extends JComponent{
         ActionListener al = new ActionListener() {
             public void actionPerformed(ActionEvent ae){
                 
-                task_name.setString("PLS WORK");
+                taskName.setString("PLS WORK");
                 
                 
                 repaint();
@@ -157,7 +165,7 @@ public class RectangleCanvas extends JComponent{
                         r2.Vroom();   
                         break;
                     case KeyEvent.VK_RIGHT:
-                        task_name.setString("Right");
+                        taskName.setString("Right");
                         break;
                 }
             }
@@ -171,7 +179,7 @@ public class RectangleCanvas extends JComponent{
                         
                         break;
                     case KeyEvent.VK_RIGHT:
-                        task_name.setString("Let go");
+                        taskName.setString("Let go");
                         break;
                 }
             }
