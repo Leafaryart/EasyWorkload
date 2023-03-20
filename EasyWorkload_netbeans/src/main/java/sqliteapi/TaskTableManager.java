@@ -2,6 +2,19 @@ package sqliteapi;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * <h2> Class Description </h2>
+ * <p> {@code TaskTableManager} is a class that
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Ray Rafael Abenido
+ * @implNote Most functions in this class have {@code protected} access modifier so that only
+ * subclasses can use them. Other classes other than the subclasses are not expected to use
+ * the functions here.
+ *
+ */
 public class TaskTableManager extends TableManager {
 	public TaskTableManager(String tableName, String connectionURL, String primaryKey) {
 		super(tableName, connectionURL, primaryKey);

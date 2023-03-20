@@ -3,6 +3,17 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
+
+
+/**
+/**
+ * {@code UMTS} class is where.....
+ * 
+ * 
+ * @author Marc Gerald Simeon
+ * @since release
+ * @version 1.0
+ */
 public class UMTS {
     public static void main(String[] args) {
     //For the Canvas
