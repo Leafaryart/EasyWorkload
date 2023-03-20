@@ -1,4 +1,4 @@
-package com.mycompany.umts;
+package umts;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
