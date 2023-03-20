@@ -6,10 +6,9 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * <h2> Class Description </h2>
- * <p> {@code TableManager} is a class that manages one table in a SQLite database.
- * Multiple instances of this class can be created to manage different tables. It
- * provides the four CRUD functions (create, retrieve, update, delete) needed to
- * interact with rows in a table.
+ * <p> {@code TableManager} is a class that manages a table in a SQLite database.
+ * It * provides the four CRUD functions (create, retrieve, update, delete)
+ * needed to interact with rows in a table.
  *  
  * <p> Methods are also provided to compensate for the limited number of data types
  * that an SQLite database can store, as SQLite databases can only store integers,
@@ -27,13 +26,10 @@ import java.time.format.DateTimeFormatter;
  * <p> As mentioned, for this class to be useful this needs to be extended by subclasses
  * because there is no 'one-size fits all' solution that can cater to every possible table.
  * Fortunately, most of the functions in this class can handle interactions with an SQLite
- * database well. Programmers only need to write two functions: {code generateINSERTQuery()}
- * and {@code generateUPDATEQuery()}.
+ * database well. Programmers need to write two functions:{code generateINSERTQuery()}
+ * and {@code generateUPDATEQuery()}. As the name suggests, programmers need to
+ * create a function that generate INSERT and UPDATE queries to a database.
  * 
- * <p> These two functions must be overriden using the {@code @Override} token and tailored to
- * match their table's attributes/columns. But otherwise, no other modifications need to take
- * place. See each individual function's documentation for details on how they should be used by
- * extending classes.
  * 
  * 
  * @since 1.0
@@ -106,18 +102,8 @@ public class TableManager
         	System.out.println(query);
         	Statement s = connectionURL.createStatement();
         	ResultSet result = s.executeQuery(query);
-            System.out.println("Finished retrieval");
-            
-            // Remind me to comment out this block
-        	ResultSet test = s.executeQuery(query);
-        	while (test.next()) {
-        		System.out.print(test.getInt(1));
-        		System.out.print(" " + test.getString(2));
-        		System.out.print(" " + test.getString(3));
-        		System.out.println();
-        	}
-        	
-            return result;
+                System.out.println("Finished retrieval");	
+                return result;
     	} catch (SQLException e) {
     		System.out.println("Failed to retrieve records from " + tableName 
     				+ ". See stack trace.");
@@ -225,7 +211,7 @@ public class TableManager
      * @return The string equivalent of the boolean
      * @author Ray Rafael Abenido
      */
-    protected String convertToSQLITEBoolean(Boolean b) {
+    protected String convertToSQLiteBoolean(Boolean b) {
     	if (b) {
     		return "True";
     	} else {
@@ -244,7 +230,7 @@ public class TableManager
      * @param s the String in the database to convert
      * @return The boolean equivalent of the String
      */
-    protected Boolean convertToBoolean(String s) {
+    protected Boolean convertToJavaBoolean(String s) {
     	if (s == "True") {
             return true;
         } else {
@@ -261,7 +247,7 @@ public class TableManager
      * @return A {@code String} version
      * @author Ray Rafael Abenido
      */
-    protected String convertToSQLITEDateTime(LocalDateTime dateTime) {
+    protected String convertToSQLiteLDT(LocalDateTime dateTime) {
     	DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String formattedDateTime = dateTime.format(format);
     	return formattedDateTime;
@@ -277,7 +263,7 @@ public class TableManager
      * @return Its {@code LocalDateTime} equivalent
      * @author Ray Rafael Abenido
      */
-    protected LocalDateTime convertToLDT(String formattedString) {
+    protected LocalDateTime convertToJavaLDT(String formattedString) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
         return LocalDateTime.parse(formattedString, format);
     }

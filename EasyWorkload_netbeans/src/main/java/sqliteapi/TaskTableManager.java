@@ -3,27 +3,19 @@ package sqliteapi;
 import java.time.LocalDateTime;
 
 public class TaskTableManager extends TableManager {
-	public static void main (String[] args) {
-		String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
-		String tableName = "task_list";
-		String primaryKey = "taskID";
-		TaskTableManager tm = new TaskTableManager(tableName, connectionURL, primaryKey);
-		tm.generateUPDATEQuery(1, "connectionURL", "blah", LocalDateTime.now(), LocalDateTime.now(), "burger", true, true, true);
-	}
-	
 	public TaskTableManager(String tableName, String connectionURL, String primaryKey) {
 		super(tableName, connectionURL, primaryKey);
 	}
-	
+		
 	protected void generateINSERTQuery(int taskID, String task_title, String description,
 			LocalDateTime date_added, LocalDateTime deadline, String subject,
 			boolean is_complete, boolean is_late, boolean is_subtask_of) {
 		
-		String s_date_added = this.convertToSQLITEDateTime(date_added);
-		String s_deadline = this.convertToSQLITEDateTime(deadline);
-		String s_is_complete = this.convertToSQLITEBoolean(is_complete);
-		String s_is_late = this.convertToSQLITEBoolean(is_late);
-		String s_subtask_of = this.convertToSQLITEBoolean(is_subtask_of);
+		String s_date_added = this.convertToSQLiteLDT(date_added);
+		String s_deadline = this.convertToSQLiteLDT(deadline);
+		String s_is_complete = this.convertToSQLiteBoolean(is_complete);
+		String s_is_late = this.convertToSQLiteBoolean(is_late);
+		String s_subtask_of = this.convertToSQLiteBoolean(is_subtask_of);
 		
 		String query = 
 				"INSERT INTO " + tableName + " (taskID, title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of) "
@@ -39,18 +31,17 @@ public class TaskTableManager extends TableManager {
 				+ ", '" + s_subtask_of + "'"
 				+ ")";
 		System.out.println(query);
-		this.modifyRecord(query);
 	}
 	
 	protected void generateUPDATEQuery(int taskID, String task_title, String description,
 			LocalDateTime date_added, LocalDateTime deadline, String subject,
 			boolean is_complete, boolean is_late, boolean is_subtask_of) {
 		
-		String s_date_added = this.convertToSQLITEDateTime(date_added);
-		String s_deadline = this.convertToSQLITEDateTime(deadline);
-		String s_is_complete = this.convertToSQLITEBoolean(is_complete);
-		String s_is_late = this.convertToSQLITEBoolean(is_late);
-		String s_subtask_of = this.convertToSQLITEBoolean(is_subtask_of);
+		String s_date_added = this.convertToSQLiteLDT(date_added);
+		String s_deadline = this.convertToSQLiteLDT(deadline);
+		String s_is_complete = this.convertToSQLiteBoolean(is_complete);
+		String s_is_late = this.convertToSQLiteBoolean(is_late);
+		String s_subtask_of = this.convertToSQLiteBoolean(is_subtask_of);
 		
 		String query = 
 				"UPDATE " + tableName + " SET "
@@ -65,6 +56,5 @@ public class TaskTableManager extends TableManager {
 				+ "WHERE taskID = " + taskID
 				+ ";";
 		System.out.println(query);
-		this.modifyRecord(query);
 	}
 }
