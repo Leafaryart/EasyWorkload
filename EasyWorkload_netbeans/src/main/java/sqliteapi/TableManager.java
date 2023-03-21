@@ -129,7 +129,7 @@ public class TableManager
      * left to the extending class.
      */
     @SuppressWarnings("unused")
-    protected final ResultSet getRecord(int pKey) {
+    public final ResultSet getRecord(int pKey) {
     	try {
     		String query = "SELECT * FROM " + tableName + " WHERE " + primaryKey + "=" + pKey;
         	System.out.println(query);
