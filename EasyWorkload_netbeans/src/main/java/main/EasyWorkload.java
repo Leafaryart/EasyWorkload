@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class EasyWorkload {
     public static void main(String[] args) {
-        String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
+        String connectionURL = "static\\app_storage.db";
         SubjectTableManager stm = new SubjectTableManager("subject", connectionURL, "subjectID");
         TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
         
