@@ -58,17 +58,13 @@ public class Calendar extends javax.swing.JFrame {
 
     public Calendar(ResultSet rs, int monthNumber) {
         days = new ArrayList<JTextArea>();
-        information = new ArrayList<String>();
+        //information = new ArrayList<String>();
         this.rs = rs;
         this.monthNumber = monthNumber;
         initComponents();
         setMonthName();
         append_days();
-        format_rs();
-        for (String s: information) {
-            System.out.println(s);
-        }
-        
+        format_rs();     
     }
     
     private void append_days() {
@@ -117,7 +113,16 @@ public class Calendar extends javax.swing.JFrame {
         days.add(txtFriday5);
         days.add(txtSaturday5);
     }
-   
+   /**
+    * 
+    * java.Time.*; - for showing the number of days in a month
+    * 
+    * if first day of the month is on a Tuesday
+    *   get the position of that JTextArea representing Tuesday in the days list
+    *   iterate through list and assign each JTextArea a day number until
+    * you reach the max. number of days for that month
+    * 
+    */
     private void format_rs() {
         try {
             while(rs.next()) {
