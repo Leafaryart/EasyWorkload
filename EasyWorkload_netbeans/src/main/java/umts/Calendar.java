@@ -165,16 +165,27 @@ public class Calendar extends javax.swing.JFrame {
                list.add(temp);
             }
             
-            for (JTextArea day: days) {
-                if (day.getText().equals("")) {
-                    System.out.println("Is empty");
-                } else {
-                    System.out.println(day.getText());
-                }   
+        for (int i = 0; i < days.size(); i++) {
+            JTextArea day = days.get(i);
+            String dayText = day.getText().trim();
+            if (!dayText.isEmpty()) {
+                for (String[] task : list) {
+                    String deadline = task[1];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M-d-yyyy");
+                    LocalDate deadlineDate = LocalDate.parse(task[1], formatter);
+                    int dayNumber = Integer.parseInt(dayText);
+                    if (deadlineDate.getDayOfMonth() == dayNumber) {
+                        String title = task[0];
+                        String taskInfo = day.getText() + "\n" + title;
+                        day.setText(taskInfo);
+                        day.setBackground(Color.GREEN);
+                    }
+                }
             }
-        } catch (SQLException e) {
-        
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }
     
     private void format_rs() {
