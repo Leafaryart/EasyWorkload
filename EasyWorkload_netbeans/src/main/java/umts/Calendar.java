@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package umts;
+import java.awt.Color;
 import javax.swing.JTextArea;
 import java.util.*;
 import java.sql.*;
@@ -64,7 +65,9 @@ public class Calendar extends javax.swing.JFrame {
         initComponents();
         setMonthName();
         append_days();
-        format_rs();     
+        //format_rs();
+        format_calendar();  
+        appendTasks();
     }
     
     private void append_days() {
@@ -123,24 +126,97 @@ public class Calendar extends javax.swing.JFrame {
     * you reach the max. number of days for that month
     * 
     */
-    private void format_rs() {
+    private void format_calendar() {
+        for (JTextArea day: days) {
+            day.setText("");
+        }
+        
         try {
-            while(rs.next()) {
-                String title = rs.getString("title");
-                String date = rs.getString("deadline");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-                LocalDate parsedDate = LocalDate.parse(date, formatter);
-                if(parsedDate.getMonthValue() == monthNumber) {
-                    System.out.println(title + " " + date);
+            LocalDate today = LocalDate.now();
+            LocalDate firstDayOfMonth = LocalDate.of(LocalDate.now().getYear(), monthNumber, 1);
+            int firstDayIndex = firstDayOfMonth.getDayOfWeek().getValue() % 7;
+            if (firstDayIndex == 0) {
+                firstDayIndex = 7;
+            }
+            for (int i = 0; i < days.size(); i++) {
+                if (i >= firstDayIndex && i < firstDayIndex + firstDayOfMonth.lengthOfMonth()) {
+                    JTextArea dayTextArea = days.get(i);
+                    int dayNumber = i - firstDayIndex + 1;
+                    dayTextArea.setText(Integer.toString(dayNumber));
+                    LocalDate parsedDate = LocalDate.of(LocalDate.now().getYear(), monthNumber, dayNumber);
+                    if (parsedDate.isEqual(today)) {
+                        dayTextArea.setBackground(Color.YELLOW);
+                    }
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Something went wrong while formatting");
             e.printStackTrace();
         }
-        
     }
     
+    private void appendTasks() {
+        ArrayList<String[]> list = new ArrayList<>();
+        try {
+            while(rs.next()) {
+               String title = rs.getString("title");
+               String deadline = rs.getString("deadline");
+               String[] temp = {title, deadline};
+               list.add(temp);
+            }
+            
+            for (JTextArea day: days) {
+                if (day.getText().equals("")) {
+                    System.out.println("Is empty");
+                } else {
+                    System.out.println(day.getText());
+                }   
+            }
+        } catch (SQLException e) {
+        
+        }
+    }
+    
+    private void format_rs() {
+    try {
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfMonth = LocalDate.of(LocalDate.now().getYear(), monthNumber, 1);
+        int firstDayIndex = firstDayOfMonth.getDayOfWeek().getValue() % 7;
+        if (firstDayIndex == 0) {
+            firstDayIndex = 7;
+        }
+        
+        // Retrieve tasks from the database
+        String url = "jdbc:sqlite:static\\app_storage.db";
+        Connection conn = DriverManager.getConnection(url);
+        String sql = "SELECT title, deadline FROM task_list WHERE strftime('%m', deadline) = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, String.format("%02d", monthNumber));
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            String title = rs.getString("title");
+            String deadline = rs.getString("deadline");
+            LocalDate parsedDate = LocalDate.parse(deadline, DateTimeFormatter.ISO_LOCAL_DATE);
+
+            int dayNumber = parsedDate.getDayOfMonth();
+            JTextArea dayTextArea = days.get(firstDayIndex + dayNumber - 2);
+            dayTextArea.append(title + "\n");
+
+            if (parsedDate.isEqual(today)) {
+                dayTextArea.setBackground(Color.YELLOW);
+            }
+        }
+
+        rs.close();
+        pstmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        System.out.println("Something went wrong while accessing the database");
+        e.printStackTrace();
+    }
+}
+
     private void setMonthName() {
         Month month = Month.of(monthNumber);
         lblMonth.setText(month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
@@ -205,7 +281,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday1.setBorder(null);
         txtSunday1.setOpaque(false);
         getContentPane().add(txtSunday1);
-        txtSunday1.setBounds(90, 90, 90, 70);
+        txtSunday1.setBounds(80, 90, 90, 70);
 
         txtSunday2.setEditable(false);
         txtSunday2.setColumns(20);
@@ -214,7 +290,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday2.setBorder(null);
         txtSunday2.setOpaque(false);
         getContentPane().add(txtSunday2);
-        txtSunday2.setBounds(90, 160, 90, 70);
+        txtSunday2.setBounds(80, 160, 90, 70);
 
         txtSunday3.setEditable(false);
         txtSunday3.setColumns(20);
@@ -223,7 +299,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday3.setBorder(null);
         txtSunday3.setOpaque(false);
         getContentPane().add(txtSunday3);
-        txtSunday3.setBounds(90, 230, 90, 70);
+        txtSunday3.setBounds(80, 230, 90, 70);
 
         txtSunday4.setEditable(false);
         txtSunday4.setColumns(20);
@@ -232,7 +308,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday4.setBorder(null);
         txtSunday4.setOpaque(false);
         getContentPane().add(txtSunday4);
-        txtSunday4.setBounds(90, 300, 90, 70);
+        txtSunday4.setBounds(80, 300, 90, 70);
 
         txtSunday5.setEditable(false);
         txtSunday5.setColumns(20);
@@ -241,7 +317,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday5.setBorder(null);
         txtSunday5.setOpaque(false);
         getContentPane().add(txtSunday5);
-        txtSunday5.setBounds(90, 370, 90, 70);
+        txtSunday5.setBounds(80, 370, 90, 70);
 
         txtMonday1.setEditable(false);
         txtMonday1.setColumns(20);
@@ -250,7 +326,7 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday1.setBorder(null);
         txtMonday1.setOpaque(false);
         getContentPane().add(txtMonday1);
-        txtMonday1.setBounds(180, 90, 90, 70);
+        txtMonday1.setBounds(170, 90, 90, 70);
 
         txtMonday2.setEditable(false);
         txtMonday2.setColumns(20);
@@ -259,7 +335,7 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday2.setBorder(null);
         txtMonday2.setOpaque(false);
         getContentPane().add(txtMonday2);
-        txtMonday2.setBounds(180, 160, 90, 70);
+        txtMonday2.setBounds(170, 160, 90, 70);
 
         txtMonday3.setEditable(false);
         txtMonday3.setColumns(20);
@@ -268,7 +344,7 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday3.setBorder(null);
         txtMonday3.setOpaque(false);
         getContentPane().add(txtMonday3);
-        txtMonday3.setBounds(180, 230, 90, 70);
+        txtMonday3.setBounds(170, 230, 90, 70);
 
         txtMonday4.setEditable(false);
         txtMonday4.setColumns(20);
@@ -277,7 +353,7 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday4.setBorder(null);
         txtMonday4.setOpaque(false);
         getContentPane().add(txtMonday4);
-        txtMonday4.setBounds(180, 300, 90, 70);
+        txtMonday4.setBounds(170, 300, 90, 70);
 
         txtMonday5.setEditable(false);
         txtMonday5.setColumns(20);
@@ -286,7 +362,7 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday5.setBorder(null);
         txtMonday5.setOpaque(false);
         getContentPane().add(txtMonday5);
-        txtMonday5.setBounds(180, 370, 90, 70);
+        txtMonday5.setBounds(170, 370, 90, 70);
 
         txtTuesday1.setEditable(false);
         txtTuesday1.setColumns(20);
@@ -295,7 +371,7 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday1.setBorder(null);
         txtTuesday1.setOpaque(false);
         getContentPane().add(txtTuesday1);
-        txtTuesday1.setBounds(270, 90, 90, 70);
+        txtTuesday1.setBounds(260, 90, 90, 70);
 
         txtTuesday2.setEditable(false);
         txtTuesday2.setColumns(20);
@@ -304,7 +380,7 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday2.setBorder(null);
         txtTuesday2.setOpaque(false);
         getContentPane().add(txtTuesday2);
-        txtTuesday2.setBounds(270, 160, 90, 70);
+        txtTuesday2.setBounds(260, 160, 90, 70);
 
         txtTuesday3.setEditable(false);
         txtTuesday3.setColumns(20);
@@ -313,7 +389,7 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday3.setBorder(null);
         txtTuesday3.setOpaque(false);
         getContentPane().add(txtTuesday3);
-        txtTuesday3.setBounds(270, 230, 90, 70);
+        txtTuesday3.setBounds(260, 230, 90, 70);
 
         txtTuesday4.setEditable(false);
         txtTuesday4.setColumns(20);
@@ -322,7 +398,7 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday4.setBorder(null);
         txtTuesday4.setOpaque(false);
         getContentPane().add(txtTuesday4);
-        txtTuesday4.setBounds(270, 300, 90, 70);
+        txtTuesday4.setBounds(260, 300, 90, 70);
 
         txtTuesday5.setEditable(false);
         txtTuesday5.setColumns(20);
@@ -331,7 +407,7 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday5.setBorder(null);
         txtTuesday5.setOpaque(false);
         getContentPane().add(txtTuesday5);
-        txtTuesday5.setBounds(270, 370, 90, 70);
+        txtTuesday5.setBounds(260, 370, 90, 70);
 
         txtWednesday1.setEditable(false);
         txtWednesday1.setColumns(20);
@@ -475,7 +551,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday1.setBorder(null);
         txtSaturday1.setOpaque(false);
         getContentPane().add(txtSaturday1);
-        txtSaturday1.setBounds(630, 230, 90, 70);
+        txtSaturday1.setBounds(630, 90, 90, 70);
 
         txtSaturday2.setEditable(false);
         txtSaturday2.setColumns(20);
@@ -484,7 +560,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday2.setBorder(null);
         txtSaturday2.setOpaque(false);
         getContentPane().add(txtSaturday2);
-        txtSaturday2.setBounds(630, 370, 90, 70);
+        txtSaturday2.setBounds(630, 160, 90, 70);
 
         txtSaturday3.setEditable(false);
         txtSaturday3.setColumns(20);
@@ -493,7 +569,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday3.setBorder(null);
         txtSaturday3.setOpaque(false);
         getContentPane().add(txtSaturday3);
-        txtSaturday3.setBounds(630, 160, 90, 70);
+        txtSaturday3.setBounds(630, 230, 90, 70);
 
         txtSaturday4.setEditable(false);
         txtSaturday4.setColumns(20);
@@ -511,7 +587,7 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday5.setBorder(null);
         txtSaturday5.setOpaque(false);
         getContentPane().add(txtSaturday5);
-        txtSaturday5.setBounds(630, 90, 90, 70);
+        txtSaturday5.setBounds(630, 370, 90, 70);
 
         lblMonth.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblMonth.setForeground(new java.awt.Color(255, 255, 255));
