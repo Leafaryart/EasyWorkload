@@ -178,7 +178,7 @@ public class Calendar extends javax.swing.JFrame {
                         String title = task[0];
                         String taskInfo = day.getText() + "\n" + title;
                         day.setText(taskInfo);
-                        day.setBackground(Color.GREEN);
+                        day.setBackground(Color.getHSBColor(0.55f, 0.67f, 0.84f));
                     }
                 }
             }
@@ -275,10 +275,12 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\EasyWorkload_netbeans\\static\\Calendar_Frame_downsized.png")); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyWorkload - Calendar");
+        setBackground(new java.awt.Color(0, 0, 0));
         setName("JCalendar"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 485));
         setResizable(false);
@@ -286,16 +288,22 @@ public class Calendar extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         txtSunday1.setEditable(false);
+        txtSunday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday1.setColumns(20);
+        txtSunday1.setForeground(new java.awt.Color(255, 255, 255));
         txtSunday1.setRows(5);
         txtSunday1.setText("sample\nsample\nsample\nsample");
         txtSunday1.setBorder(null);
+        txtSunday1.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtSunday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday1.setOpaque(false);
         getContentPane().add(txtSunday1);
         txtSunday1.setBounds(80, 90, 90, 70);
 
         txtSunday2.setEditable(false);
+        txtSunday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday2.setColumns(20);
+        txtSunday2.setForeground(new java.awt.Color(255, 255, 255));
         txtSunday2.setRows(5);
         txtSunday2.setText("sample\nsample\nsample\nsample");
         txtSunday2.setBorder(null);
@@ -304,7 +312,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday2.setBounds(80, 160, 90, 70);
 
         txtSunday3.setEditable(false);
+        txtSunday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday3.setColumns(20);
+        txtSunday3.setForeground(new java.awt.Color(255, 255, 255));
         txtSunday3.setRows(5);
         txtSunday3.setText("sample\nsample\nsample\nsample");
         txtSunday3.setBorder(null);
@@ -313,7 +323,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday3.setBounds(80, 230, 90, 70);
 
         txtSunday4.setEditable(false);
+        txtSunday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday4.setColumns(20);
+        txtSunday4.setForeground(new java.awt.Color(255, 255, 255));
         txtSunday4.setRows(5);
         txtSunday4.setText("sample\nsample\nsample\nsample");
         txtSunday4.setBorder(null);
@@ -322,7 +334,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday4.setBounds(80, 300, 90, 70);
 
         txtSunday5.setEditable(false);
+        txtSunday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSunday5.setColumns(20);
+        txtSunday5.setForeground(new java.awt.Color(255, 255, 255));
         txtSunday5.setRows(5);
         txtSunday5.setText("sample\nsample\nsample\nsample");
         txtSunday5.setBorder(null);
@@ -331,7 +345,10 @@ public class Calendar extends javax.swing.JFrame {
         txtSunday5.setBounds(80, 370, 90, 70);
 
         txtMonday1.setEditable(false);
+        txtMonday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday1.setColumns(20);
+        txtMonday1.setForeground(new java.awt.Color(255, 255, 255));
+        txtMonday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday1.setRows(5);
         txtMonday1.setText("sample\nsample\nsample\nsample");
         txtMonday1.setBorder(null);
@@ -340,7 +357,9 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday1.setBounds(170, 90, 90, 70);
 
         txtMonday2.setEditable(false);
+        txtMonday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday2.setColumns(20);
+        txtMonday2.setForeground(new java.awt.Color(255, 255, 255));
         txtMonday2.setRows(5);
         txtMonday2.setText("sample\nsample\nsample\nsample");
         txtMonday2.setBorder(null);
@@ -349,7 +368,9 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday2.setBounds(170, 160, 90, 70);
 
         txtMonday3.setEditable(false);
+        txtMonday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday3.setColumns(20);
+        txtMonday3.setForeground(new java.awt.Color(255, 255, 255));
         txtMonday3.setRows(5);
         txtMonday3.setText("sample\nsample\nsample\nsample");
         txtMonday3.setBorder(null);
@@ -358,7 +379,9 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday3.setBounds(170, 230, 90, 70);
 
         txtMonday4.setEditable(false);
+        txtMonday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday4.setColumns(20);
+        txtMonday4.setForeground(new java.awt.Color(255, 255, 255));
         txtMonday4.setRows(5);
         txtMonday4.setText("sample\nsample\nsample\nsample");
         txtMonday4.setBorder(null);
@@ -367,7 +390,9 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday4.setBounds(170, 300, 90, 70);
 
         txtMonday5.setEditable(false);
+        txtMonday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtMonday5.setColumns(20);
+        txtMonday5.setForeground(new java.awt.Color(255, 255, 255));
         txtMonday5.setRows(5);
         txtMonday5.setText("sample\nsample\nsample\nsample");
         txtMonday5.setBorder(null);
@@ -376,7 +401,9 @@ public class Calendar extends javax.swing.JFrame {
         txtMonday5.setBounds(170, 370, 90, 70);
 
         txtTuesday1.setEditable(false);
+        txtTuesday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtTuesday1.setColumns(20);
+        txtTuesday1.setForeground(new java.awt.Color(255, 255, 255));
         txtTuesday1.setRows(5);
         txtTuesday1.setText("sample\nsample\nsample\nsample");
         txtTuesday1.setBorder(null);
@@ -385,7 +412,9 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday1.setBounds(260, 90, 90, 70);
 
         txtTuesday2.setEditable(false);
+        txtTuesday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtTuesday2.setColumns(20);
+        txtTuesday2.setForeground(new java.awt.Color(255, 255, 255));
         txtTuesday2.setRows(5);
         txtTuesday2.setText("sample\nsample\nsample\nsample");
         txtTuesday2.setBorder(null);
@@ -394,7 +423,9 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday2.setBounds(260, 160, 90, 70);
 
         txtTuesday3.setEditable(false);
+        txtTuesday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtTuesday3.setColumns(20);
+        txtTuesday3.setForeground(new java.awt.Color(255, 255, 255));
         txtTuesday3.setRows(5);
         txtTuesday3.setText("sample\nsample\nsample\nsample");
         txtTuesday3.setBorder(null);
@@ -403,7 +434,9 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday3.setBounds(260, 230, 90, 70);
 
         txtTuesday4.setEditable(false);
+        txtTuesday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtTuesday4.setColumns(20);
+        txtTuesday4.setForeground(new java.awt.Color(255, 255, 255));
         txtTuesday4.setRows(5);
         txtTuesday4.setText("sample\nsample\nsample\nsample");
         txtTuesday4.setBorder(null);
@@ -412,7 +445,9 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday4.setBounds(260, 300, 90, 70);
 
         txtTuesday5.setEditable(false);
+        txtTuesday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtTuesday5.setColumns(20);
+        txtTuesday5.setForeground(new java.awt.Color(255, 255, 255));
         txtTuesday5.setRows(5);
         txtTuesday5.setText("sample\nsample\nsample\nsample");
         txtTuesday5.setBorder(null);
@@ -421,7 +456,9 @@ public class Calendar extends javax.swing.JFrame {
         txtTuesday5.setBounds(260, 370, 90, 70);
 
         txtWednesday1.setEditable(false);
+        txtWednesday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtWednesday1.setColumns(20);
+        txtWednesday1.setForeground(new java.awt.Color(255, 255, 255));
         txtWednesday1.setRows(5);
         txtWednesday1.setText("sample\nsample\nsample\nsample");
         txtWednesday1.setBorder(null);
@@ -430,7 +467,9 @@ public class Calendar extends javax.swing.JFrame {
         txtWednesday1.setBounds(360, 90, 90, 70);
 
         txtWednesday2.setEditable(false);
+        txtWednesday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtWednesday2.setColumns(20);
+        txtWednesday2.setForeground(new java.awt.Color(255, 255, 255));
         txtWednesday2.setRows(5);
         txtWednesday2.setText("sample\nsample\nsample\nsample");
         txtWednesday2.setBorder(null);
@@ -439,7 +478,9 @@ public class Calendar extends javax.swing.JFrame {
         txtWednesday2.setBounds(360, 160, 90, 70);
 
         txtWednesday3.setEditable(false);
+        txtWednesday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtWednesday3.setColumns(20);
+        txtWednesday3.setForeground(new java.awt.Color(255, 255, 255));
         txtWednesday3.setRows(5);
         txtWednesday3.setText("sample\nsample\nsample\nsample");
         txtWednesday3.setBorder(null);
@@ -448,7 +489,9 @@ public class Calendar extends javax.swing.JFrame {
         txtWednesday3.setBounds(360, 230, 90, 70);
 
         txtWednesday4.setEditable(false);
+        txtWednesday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtWednesday4.setColumns(20);
+        txtWednesday4.setForeground(new java.awt.Color(255, 255, 255));
         txtWednesday4.setRows(5);
         txtWednesday4.setText("sample\nsample\nsample\nsample");
         txtWednesday4.setBorder(null);
@@ -457,7 +500,9 @@ public class Calendar extends javax.swing.JFrame {
         txtWednesday4.setBounds(360, 300, 90, 70);
 
         txtWednesday5.setEditable(false);
+        txtWednesday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtWednesday5.setColumns(20);
+        txtWednesday5.setForeground(new java.awt.Color(255, 255, 255));
         txtWednesday5.setRows(5);
         txtWednesday5.setText("sample\nsample\nsample\nsample");
         txtWednesday5.setBorder(null);
@@ -466,7 +511,9 @@ public class Calendar extends javax.swing.JFrame {
         txtWednesday5.setBounds(360, 370, 90, 70);
 
         txtThursday1.setEditable(false);
+        txtThursday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtThursday1.setColumns(20);
+        txtThursday1.setForeground(new java.awt.Color(255, 255, 255));
         txtThursday1.setRows(5);
         txtThursday1.setText("sample\nsample\nsample\nsample");
         txtThursday1.setBorder(null);
@@ -475,7 +522,9 @@ public class Calendar extends javax.swing.JFrame {
         txtThursday1.setBounds(450, 90, 90, 70);
 
         txtThursday2.setEditable(false);
+        txtThursday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtThursday2.setColumns(20);
+        txtThursday2.setForeground(new java.awt.Color(255, 255, 255));
         txtThursday2.setRows(5);
         txtThursday2.setText("sample\nsample\nsample\nsample");
         txtThursday2.setBorder(null);
@@ -484,7 +533,9 @@ public class Calendar extends javax.swing.JFrame {
         txtThursday2.setBounds(450, 160, 90, 70);
 
         txtThursday3.setEditable(false);
+        txtThursday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtThursday3.setColumns(20);
+        txtThursday3.setForeground(new java.awt.Color(255, 255, 255));
         txtThursday3.setRows(5);
         txtThursday3.setText("sample\nsample\nsample\nsample");
         txtThursday3.setBorder(null);
@@ -493,7 +544,9 @@ public class Calendar extends javax.swing.JFrame {
         txtThursday3.setBounds(450, 230, 90, 70);
 
         txtThursday4.setEditable(false);
+        txtThursday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtThursday4.setColumns(20);
+        txtThursday4.setForeground(new java.awt.Color(255, 255, 255));
         txtThursday4.setRows(5);
         txtThursday4.setText("sample\nsample\nsample\nsample");
         txtThursday4.setBorder(null);
@@ -502,7 +555,9 @@ public class Calendar extends javax.swing.JFrame {
         txtThursday4.setBounds(450, 300, 90, 70);
 
         txtThursday5.setEditable(false);
+        txtThursday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtThursday5.setColumns(20);
+        txtThursday5.setForeground(new java.awt.Color(255, 255, 255));
         txtThursday5.setRows(5);
         txtThursday5.setText("sample\nsample\nsample\nsample");
         txtThursday5.setBorder(null);
@@ -511,7 +566,9 @@ public class Calendar extends javax.swing.JFrame {
         txtThursday5.setBounds(450, 370, 90, 70);
 
         txtFriday1.setEditable(false);
+        txtFriday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday1.setColumns(20);
+        txtFriday1.setForeground(new java.awt.Color(255, 255, 255));
         txtFriday1.setRows(5);
         txtFriday1.setText("sample\nsample\nsample\nsample");
         txtFriday1.setBorder(null);
@@ -520,7 +577,10 @@ public class Calendar extends javax.swing.JFrame {
         txtFriday1.setBounds(540, 90, 90, 70);
 
         txtFriday2.setEditable(false);
+        txtFriday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday2.setColumns(20);
+        txtFriday2.setForeground(new java.awt.Color(255, 255, 255));
+        txtFriday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday2.setRows(5);
         txtFriday2.setText("sample\nsample\nsample\nsample");
         txtFriday2.setBorder(null);
@@ -529,7 +589,9 @@ public class Calendar extends javax.swing.JFrame {
         txtFriday2.setBounds(540, 160, 90, 70);
 
         txtFriday3.setEditable(false);
+        txtFriday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday3.setColumns(20);
+        txtFriday3.setForeground(new java.awt.Color(255, 255, 255));
         txtFriday3.setRows(5);
         txtFriday3.setText("sample\nsample\nsample\nsample");
         txtFriday3.setBorder(null);
@@ -538,7 +600,9 @@ public class Calendar extends javax.swing.JFrame {
         txtFriday3.setBounds(540, 230, 90, 70);
 
         txtFriday4.setEditable(false);
+        txtFriday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday4.setColumns(20);
+        txtFriday4.setForeground(new java.awt.Color(255, 255, 255));
         txtFriday4.setRows(5);
         txtFriday4.setText("sample\nsample\nsample\nsample");
         txtFriday4.setBorder(null);
@@ -547,7 +611,9 @@ public class Calendar extends javax.swing.JFrame {
         txtFriday4.setBounds(540, 300, 90, 70);
 
         txtFriday5.setEditable(false);
+        txtFriday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtFriday5.setColumns(20);
+        txtFriday5.setForeground(new java.awt.Color(255, 255, 255));
         txtFriday5.setRows(5);
         txtFriday5.setText("sample\nsample\nsample\nsample");
         txtFriday5.setBorder(null);
@@ -556,7 +622,9 @@ public class Calendar extends javax.swing.JFrame {
         txtFriday5.setBounds(540, 370, 90, 70);
 
         txtSaturday1.setEditable(false);
+        txtSaturday1.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday1.setColumns(20);
+        txtSaturday1.setForeground(new java.awt.Color(255, 255, 255));
         txtSaturday1.setRows(5);
         txtSaturday1.setText("sample\nsample\nsample\nsample");
         txtSaturday1.setBorder(null);
@@ -565,7 +633,10 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday1.setBounds(630, 90, 90, 70);
 
         txtSaturday2.setEditable(false);
+        txtSaturday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday2.setColumns(20);
+        txtSaturday2.setForeground(new java.awt.Color(255, 255, 255));
+        txtSaturday2.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday2.setRows(5);
         txtSaturday2.setText("sample\nsample\nsample\nsample");
         txtSaturday2.setBorder(null);
@@ -574,7 +645,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday2.setBounds(630, 160, 90, 70);
 
         txtSaturday3.setEditable(false);
+        txtSaturday3.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday3.setColumns(20);
+        txtSaturday3.setForeground(new java.awt.Color(255, 255, 255));
         txtSaturday3.setRows(5);
         txtSaturday3.setText("sample\nsample\nsample\nsample");
         txtSaturday3.setBorder(null);
@@ -583,7 +656,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday3.setBounds(630, 230, 90, 70);
 
         txtSaturday4.setEditable(false);
+        txtSaturday4.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday4.setColumns(20);
+        txtSaturday4.setForeground(new java.awt.Color(255, 255, 255));
         txtSaturday4.setRows(5);
         txtSaturday4.setText("sample\nsample\nsample\nsample");
         txtSaturday4.setBorder(null);
@@ -592,7 +667,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday4.setBounds(630, 300, 90, 70);
 
         txtSaturday5.setEditable(false);
+        txtSaturday5.setBackground(new java.awt.Color(0, 0, 0,0));
         txtSaturday5.setColumns(20);
+        txtSaturday5.setForeground(new java.awt.Color(255, 255, 255));
         txtSaturday5.setRows(5);
         txtSaturday5.setText("sample\nsample\nsample\nsample");
         txtSaturday5.setBorder(null);
@@ -610,7 +687,7 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.setBounds(200, 10, 390, 40);
         lblMonth.getAccessibleContext().setAccessibleName("");
 
-        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\EasyWorkload_netbeans\\static\\Calendar_Frame_downsized.png")); // NOI18N
+        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\EasyWorkload_netbeans\\src\\main\\java\\staticfiles\\Calendar_Frame_downsized.png")); // NOI18N
         getContentPane().add(lblBackground);
         lblBackground.setBounds(0, 0, 800, 450);
 
