@@ -1,5 +1,6 @@
 package sqliteapi;
 
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -88,7 +89,7 @@ public class TableManager
      * left to the extending class.
      */
     @SuppressWarnings("unused")
-    protected final ResultSet getAllRecords()
+    public final ResultSet getAllRecords()
     {
     	try {
         	String query = "SELECT * FROM " + tableName;
@@ -136,6 +137,19 @@ public class TableManager
 		return null;
     }
 
+    public final ResultSet getRecordWhere(String whereClause) {
+        try {
+    		String query = "SELECT * FROM " + tableName + " WHERE " + primaryKey + "= " + whereClause;
+        	System.out.println(query);
+        	Statement s = connectionURL.createStatement();
+        	ResultSet result = s.executeQuery(query);
+        	return result;	
+    	} catch (SQLException e) {
+    		System.out.println("Failed to get specified record. See stack trace,");
+    		e.printStackTrace();
+    	}
+		return null;
+    }
     
     /**
      * <p> Inserts or updates a record into database.
@@ -158,7 +172,7 @@ public class TableManager
      * 
      */
     
-    protected final void modifyRecord(String query) {
+    public final void modifyRecord(String query) {
     	try {
     		Statement s = connectionURL.createStatement();
     		s.executeUpdate(query);
@@ -177,7 +191,7 @@ public class TableManager
      * @param key
      * @author Ray Rafael Abenido
      */
-    protected final void deleteRecord(int key) {
+    public final void deleteRecord(int key) {
     	try {
     		String query = "DELETE FROM " + tableName +  " WHERE " + primaryKey + "= " + key;
     		Statement s = connectionURL.createStatement();
@@ -204,7 +218,7 @@ public class TableManager
      * @return The string equivalent of the boolean
      * @author Ray Rafael Abenido
      */
-    protected String convertToSQLiteBoolean(Boolean b) {
+    public String convertToSQLiteBoolean(Boolean b) {
     	if (b) {
     		return "True";
     	} else {
@@ -223,7 +237,7 @@ public class TableManager
      * @param s the String in the database to convert
      * @return The boolean equivalent of the String
      */
-    protected Boolean convertToJavaBoolean(String s) {
+    public Boolean convertToJavaBoolean(String s) {
     	if (s == "True") {
             return true;
         } else {
