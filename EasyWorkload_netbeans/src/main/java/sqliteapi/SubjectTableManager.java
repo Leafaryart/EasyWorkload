@@ -11,6 +11,7 @@ package sqliteapi;
  * @implNote Most functions in this class have {@code protected} access modifier so that only
  * subclasses can use them. Other classes other than the subclasses are not expected to use
  * the functions here.
+ * @deprecated
  *
  */
 

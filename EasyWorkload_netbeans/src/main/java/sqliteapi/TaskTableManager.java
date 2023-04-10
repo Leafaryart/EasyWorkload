@@ -20,38 +20,34 @@ public class TaskTableManager extends TableManager {
 		super(tableName, connectionURL, primaryKey);
 	}
 		
-	protected void generateINSERTQuery(int taskID, String task_title, String description,
-			LocalDateTime date_added, LocalDateTime deadline, String subject,
+	protected String generateINSERTQuery(String task_title, String description,
+			String date_added, String deadline, String subject,
 			boolean is_complete, boolean is_late, boolean is_subtask_of) {
 		
-		String s_date_added = this.convertToSQLiteLDT(date_added);
-		String s_deadline = this.convertToSQLiteLDT(deadline);
 		String s_is_complete = this.convertToSQLiteBoolean(is_complete);
 		String s_is_late = this.convertToSQLiteBoolean(is_late);
 		String s_subtask_of = this.convertToSQLiteBoolean(is_subtask_of);
 		
 		String query = 
-				"INSERT INTO " + tableName + " (taskID, title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of) "
-				+ "VALUES("
-				+ taskID
-				+ ", '" + task_title + "'"
+				"INSERT INTO " + tableName + " (title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of) "
+				+ "VALUES('"
+                                + task_title + "'"
 				+ ", '" + description + "'"
-				+ ", '" + s_date_added + "'"
-				+ ", '" + s_deadline + "'"
+				+ ", '" + date_added + "'"
+				+ ", '" + deadline + "'"
 				+ ", '" + subject + "'"
 				+ ", '" + s_is_complete + "'"
 				+ ", '" + s_is_late + "'"
 				+ ", '" + s_subtask_of + "'"
 				+ ")";
-		System.out.println(query);
+                System.out.println(query);
+                return query;
 	}
 	
-	protected void generateUPDATEQuery(int taskID, String task_title, String description,
-			LocalDateTime date_added, LocalDateTime deadline, String subject,
+	protected String generateUPDATEQuery(int taskID, String task_title, String description,
+			String date_added, String deadline, String subject,
 			boolean is_complete, boolean is_late, boolean is_subtask_of) {
 		
-		String s_date_added = this.convertToSQLiteLDT(date_added);
-		String s_deadline = this.convertToSQLiteLDT(deadline);
 		String s_is_complete = this.convertToSQLiteBoolean(is_complete);
 		String s_is_late = this.convertToSQLiteBoolean(is_late);
 		String s_subtask_of = this.convertToSQLiteBoolean(is_subtask_of);
@@ -60,14 +56,15 @@ public class TaskTableManager extends TableManager {
 				"UPDATE " + tableName + " SET "
 				+ "title = '" + task_title + "', "
 				+ "description = '" + description + "', "
-				+ "date_added = '" + s_date_added + "', "
-				+ "deadline = '" + s_deadline + "', "
+				+ "date_added = '" + date_added + "', "
+				+ "deadline = '" + deadline + "', "
 				+ "subject = '" + subject + "', "
 				+ "is_complete = '" + s_is_complete + "', "
 				+ "is_late = '" + s_is_late + "', "
 				+ "is_subtask_of = '" + s_subtask_of + "' "
 				+ "WHERE taskID = " + taskID
 				+ ";";
-		System.out.println(query);
+                System.out.println(query);
+                return query;
 	}
 }

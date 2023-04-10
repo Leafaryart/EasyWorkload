@@ -1,20 +1,19 @@
 package sqliteapi;
 
+
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * <h2> Class Description </h2>
  * <p> {@code TableManager} is a class that manages a table in a SQLite database.
- * It * provides the four CRUD functions (create, retrieve, update, delete)
+ * It provides the four CRUD functions (create, retrieve, update, delete)
  * needed to interact with rows in a table.
  *  
  * <p> Methods are also provided to compensate for the limited number of data types
  * that an SQLite database can store, as SQLite databases can only store integers,
- * strings, null values, decimal values, and BLOBs data types. Methods are provided
- * to convert {@code Boolean} and {@code DateTime} values in native Java into a type
- * compatible with SQLite and vice versa.
+ * strings, null values, decimal values, and BLOBs data types.
  * 
  * <p> Because tables vary significantly on the number of columns, their data types and
  * across databases there is no 'one-size fits all' solution that can cater to every
@@ -74,11 +73,6 @@ public class TableManager
         }
     }
     
-    /* ========================================================================
-     * FINAL FUNCTIONS
-     * PROGRAMMERS NEED NOT TOO MODIFY THESE FUNCTIONS WHEN EXTENDING THIS CLASS
-     * ======================================================================== 
-     */
     
     /**
      * <p> Returns all the rows of table managed by this instance as a
@@ -260,7 +254,7 @@ public class TableManager
      * @return A {@code String} version
      * @author Ray Rafael Abenido
      */
-    public String convertToSQLiteLDT(LocalDateTime dateTime) {
+    protected String convertToSQLiteLD(LocalDate dateTime) {
     	DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         String formattedDateTime = dateTime.format(format);
     	return formattedDateTime;
@@ -276,8 +270,8 @@ public class TableManager
      * @return Its {@code LocalDateTime} equivalent
      * @author Ray Rafael Abenido
      */
-    public LocalDateTime convertToJavaLDT(String formattedString) {
+    protected LocalDate convertToJavaLD(String formattedString) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
-        return LocalDateTime.parse(formattedString, format);
+        return LocalDate.parse(formattedString, format);
     }
 }

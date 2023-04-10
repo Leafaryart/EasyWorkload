@@ -24,7 +24,7 @@ public class RectangleCanvas extends JComponent{
     private MyText notes;
     private MyText notes2;
     private Timer timer;
-    private String connectionURL = "static\\app_storage.db";
+    private String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
     private TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
     
     private int taskID;
@@ -38,19 +38,15 @@ public class RectangleCanvas extends JComponent{
     private String is_subtask_of;
 
     
-    JFrame frame= new JFrame();
+   JFrame frame= new JFrame();
     Container content=frame.getContentPane();
     
     int wid =1920, hei=1080;
     
     private Color color = Color.getHSBColor(0.55f, 0.67f, 0.84f);
     
-    //For the Task Frame
-    ImageIcon task_icon = new ImageIcon("static\\Tasks_Frame.png");
-    JLabel task_pic = new JLabel();
-    //For the Calendar Frame
-    ImageIcon cal_icon = new ImageIcon("static\\Calendar_Frame.png");
-    JLabel cal_pic = new JLabel();
+    ImageIcon icon = new ImageIcon("Frame (2).png");
+    JLabel pic = new JLabel();
     JLabel header;
     
     private MyRectangle r1;
@@ -81,24 +77,22 @@ public class RectangleCanvas extends JComponent{
             Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println(taskID + ", " + title + ", " + description +
+System.out.println(taskID + ", " + title + ", " + description +
                         ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
                         + ", " + is_subtask_of);
-        //For the Calendar
-        cal_pic.setIcon(cal_icon);
-        Dimension size = cal_pic.getPreferredSize();
-        cal_pic.setBounds(0,-130,wid,hei);
-        frame.add(cal_pic, BorderLayout.CENTER); 
+        
         //For the Header, TEDDDY LOOK HERE
         task_name=new MyText(100,-200,-480,Color.WHITE, title);
         notes=new MyText(60,180,-340,Color.WHITE, "Priority");
         notes2=new MyText(60,180,-240,Color.WHITE, "Due Date: " + deadline);
         //For the Header, TEDDDY LOOK HERE
+        
         JLabel header = new JLabel(task_name.getString(), SwingConstants.CENTER);
         header.setForeground(task_name.getColor());
         header.setBounds(task_name.getX(),task_name.getY(),wid,hei);
         header.setFont(new Font("Impact", Font.PLAIN, task_name.getSize()));
         frame.add(header);
+        
         //For the Attributes Notes of the Task
         JLabel attributes = new JLabel(notes.getString(), SwingConstants.LEFT);
         attributes.setForeground(notes.getColor());
@@ -110,14 +104,18 @@ public class RectangleCanvas extends JComponent{
         attributes2.setForeground(notes2.getColor());
         attributes2.setBounds(notes2.getX(),notes2.getY(),wid,hei);
         attributes2.setFont(new Font("Impact", Font.PLAIN, notes2.getSize()));
-        frame.add(attributes2);   
-        //For importing the image
-        task_pic.setIcon(task_icon);
-        task_pic.setBounds(0,-130,wid,hei);
-        frame.add(task_pic, BorderLayout.CENTER);
+        frame.add(attributes2);
         
-        //ignore this rectangles this are only testing if animations work
-        r1=new MyRectangle(600,100,100,120,3,-6);
+        
+        //For importing the image
+        pic.setIcon(icon);
+        Dimension size = pic.getPreferredSize();
+        pic.setBounds(0,-130,wid,hei);
+        frame.add(pic, BorderLayout.CENTER);
+        
+        //ignore these 2 rectangles they are only testing if animations work
+        //r1=new MyRectangle(600,100,100,120,3,-6);
+        //r2=new MyRectangle(200,400,140,130,-4,4);
     }
     
     protected void paintComponent(Graphics g)
@@ -135,66 +133,96 @@ public class RectangleCanvas extends JComponent{
         timer = new Timer(20,tp);
         timer.setRepeats(false);
         timer.start();
+        
+        
+       
+        
         g.setColor(color);
-        rec.draw(g);   
+        rec.draw(g);  
+        
+        
         
     }
     ActionListener tp = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {         
+            public void actionPerformed(ActionEvent evt) {
+                
                 task_name.setString("Left");
-                frame.add(header); 
+                frame.add(header);
+                rec.Vroom();
+                
             }
     };
     
     public void setUpTimer(){
         ActionListener al = new ActionListener() {
             public void actionPerformed(ActionEvent ae){
-                task_name.setString("PLS WORK");  
+                
+                task_name.setString("PLS WORK");
+                
+                
                 repaint();
             }
+            
         };
         timer=new Timer(20,al);
         timer.start();
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public JFrame getFrame(){
+        return frame;
+    }
+    public JLabel getLabel(){
+        return pic;
+    }
+    public Container getContentPane(){
+        return content;
+    }
+    
     public void setUpKL(){
         KeyListener kl = new KeyListener(){
-            
             public void keyTyped(KeyEvent ke){
             }
             public void keyPressed(KeyEvent ke){
                 int keyCode = ke.getKeyCode();
                 switch(keyCode){
-                    case KeyEvent.VK_UP:
-                        cal_pic.setVisible(false);
+                    case KeyEvent.VK_LEFT:
+                        r1.Vroom();
+                
+                        r2.Vroom();   
                         break;
-                    case KeyEvent.VK_DOWN:
-                        cal_pic.setVisible(true);
-                        break;    
+                    case KeyEvent.VK_RIGHT:
+                        task_name.setString("Right");
+                        break;
                 }
             }
             public void keyReleased(KeyEvent ke){
                 int keyCode = ke.getKeyCode();
                 switch(keyCode){
-                    case KeyEvent.VK_UP:
-                        cal_pic.setVisible(false);
+                    case KeyEvent.VK_LEFT:
+                        r1.Vroom();
+                
+                        r2.Vroom(); 
+                        
                         break;
-                    case KeyEvent.VK_DOWN:
-                        cal_pic.setVisible(true);
-                        break;    
+                    case KeyEvent.VK_RIGHT:
+                        task_name.setString("Let go");
+                        break;
                 }
             }
+            
         };
         content.addKeyListener(kl);
         content.setFocusable(true);
         content.requestFocusInWindow();
     }
-   public JFrame getFrame(){
-        return frame;
-    }
-    public JLabel getLabel(){
-        return task_pic;
-    }
-    public Container getContentPane(){
-        return content;
-    }
+    
 }
