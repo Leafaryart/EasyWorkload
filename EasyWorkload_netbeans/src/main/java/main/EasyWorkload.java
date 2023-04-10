@@ -17,14 +17,10 @@ import java.util.logging.Logger;
  */
 public class EasyWorkload {
     public static void main(String[] args) {
-        String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
-        SubjectTableManager stm = new SubjectTableManager("subject", connectionURL, "subjectID");
+        String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
         TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
-        
 
- 
-
-        ResultSet rs = ttm.getRecord(1);
+        ResultSet rs = ttm.getAllRecords();
         try {
             while (rs.next()) {
                 int taskID = rs.getInt("taskID");
@@ -37,8 +33,7 @@ public class EasyWorkload {
                 String is_late = rs.getString("is_late");
                 String is_subtask_of = rs.getString("is_subtask_of");
                 System.out.println(taskID + ", " + title + ", " + description +
-                        ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
-                        + ", " + is_subtask_of);
+                        ", " + date_added + ", " + deadline + ", "  + is_complete + ", " + is_late);
             } } catch (SQLException ex) {
             Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
         }

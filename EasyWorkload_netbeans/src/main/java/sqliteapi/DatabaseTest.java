@@ -8,7 +8,8 @@ import java.sql.*;
 import java.time.LocalDate;
 
 /**
- *
+ * This class is mainly for testing the SQLiteAPI package if its working
+ * Don't use this in the actual project
  * @author Ray Rafael Abenido
  */
 public class DatabaseTest extends javax.swing.JFrame {

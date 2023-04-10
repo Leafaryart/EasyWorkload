@@ -88,7 +88,7 @@ public class TableManager
      * left to the extending class.
      */
     @SuppressWarnings("unused")
-    protected final ResultSet getAllRecords()
+    public final ResultSet getAllRecords()
     {
     	try {
         	String query = "SELECT * FROM " + tableName;
