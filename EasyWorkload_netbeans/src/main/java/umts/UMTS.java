@@ -29,5 +29,6 @@ public class UMTS {
     frame.pack();
     frame.setVisible(true);
     rc.setUpTimer();
+    rc.setUpKL();
 }
 }
