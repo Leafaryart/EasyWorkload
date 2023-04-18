@@ -141,8 +141,7 @@ public class RectangleCanvas extends JComponent{
         //For importing the image
         task_pic.setIcon(task_icon);
         task_pic.setBounds(0,-130,wid,hei);
-        
-        
+        cal_pic.setVisible(false);
         content.add(cal_pic, BorderLayout.CENTER); 
         content.add(header);
         content.add(attributes1);

@@ -687,7 +687,7 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.setBounds(200, 10, 390, 40);
         lblMonth.getAccessibleContext().setAccessibleName("");
 
-        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\EasyWorkload_netbeans\\src\\main\\java\\staticfiles\\Calendar_Frame_downsized.png")); // NOI18N
+        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\repositories\\EasyWorkload\\EasyWorkload_netbeans\\static\\Calendar_Frame_downsized.png")); // NOI18N
         getContentPane().add(lblBackground);
         lblBackground.setBounds(0, 0, 800, 450);
 

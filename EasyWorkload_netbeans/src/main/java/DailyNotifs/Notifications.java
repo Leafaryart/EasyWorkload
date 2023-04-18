@@ -23,6 +23,19 @@ public class Notifications {
     private void updateFinalLabel(JSlider hourSlider, JSlider minuteSlider, JLabel finalLabel) {
     finalLabel.setText("Selected Time: " + hourSlider.getValue() + " hour/s, " + minuteSlider.getValue() + " minute/s");
 }
+    public static String connectionURL = "static\\app_storage.db";
+    public static TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+    
+    public static int taskID;
+    public static String title;
+    public static String description;
+    public static String date_added;
+    public static String deadline;
+    public static String subject;
+    public static String is_complete;
+    public static String is_late;
+    public static String is_subtask_of;
+    
     
   public static void main(String[] args) {
      
