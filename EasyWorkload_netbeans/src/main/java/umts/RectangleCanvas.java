@@ -13,7 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.EasyWorkload;
 import sqliteapi.*;
-
+import java.io.IOException;
+import DailyNotifs.Notifications;
+import umts.Calendar;
+import sqliteapi.DatabaseTest;
 public class RectangleCanvas extends JComponent{
     
     private int width;
@@ -30,7 +33,7 @@ public class RectangleCanvas extends JComponent{
     private Timer timer;
     private String connectionURL = "static\\app_storage.db";
     private TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
-    private int id =1;
+    private int id =3;
     private ResultSet rs = ttm.getRecord(id);
     private JLabel header = new JLabel("AAAA", SwingConstants.CENTER);
     private JLabel attributes1 = new JLabel("AAAA", SwingConstants.LEFT);
@@ -62,6 +65,7 @@ public class RectangleCanvas extends JComponent{
     ImageIcon cal_icon = new ImageIcon("static\\cat.jpg");
     JLabel cal_pic = new JLabel();
     
+    int previousID=0;
     //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     
     private MyRectangle r1;
@@ -138,10 +142,111 @@ public class RectangleCanvas extends JComponent{
         attributes6.setBounds(field6.getX(),field6.getY(),wid,hei);
         attributes6.setFont(new Font("Impact", Font.PLAIN, field6.getSize()));  
 
+        // Create right button
+        JButton rightButton = new JButton(">>");
+        rightButton.setBounds(1410, 410, 100, 100);
+        rightButton.setFont(new Font("Arial", Font.BOLD, 40));
+        rightButton.setBackground(color);
+        rightButton.setForeground(Color.WHITE);
+        rightButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            /*if (previousID != taskID) {
+                id += 1;
+                previousID = taskID;
+            } else {
+                id = taskID;
+                previousID =taskID;
+            }*/
+            id+=1;
+        }
+        });
+        content.add(rightButton);
+
+        // Create left button
+        JButton leftButton = new JButton("<<");
+        leftButton.setBounds(30, 410, 100, 100);
+        leftButton.setFont(new Font("Arial", Font.BOLD, 40));
+        leftButton.setBackground(color);
+        leftButton.setForeground(Color.WHITE);
+        leftButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (id > 1) {
+                id -= 1;
+                taskID = id;
+                }
+            }
+        });
+        content.add(leftButton);
+        // Create delete button
+        JButton deleteButton = new JButton("delete");
+        deleteButton.setBounds(160, 760, 100, 70);
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 20));
+        deleteButton.setBackground(color);
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ttm.modifyRecord(title);
+            }
+        });
+        content.add(deleteButton);
+        
+        // Create edit button
+        JButton editButton = new JButton("edit");
+        editButton.setBounds(270, 760, 100, 70);
+        editButton.setFont(new Font("Arial", Font.BOLD, 20));
+        editButton.setBackground(color);
+        editButton.setForeground(Color.WHITE);
+        editButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            DatabaseTest dt = new DatabaseTest();
+            dt.main(new String[0]); // Call the main method of the Database class
+            }
+        });
+        content.add(editButton);
+    
+        // Create notif button
+        JButton notifButton = new JButton("notif");
+        notifButton.setBounds(1169, 760, 100, 70);
+        notifButton.setFont(new Font("Arial", Font.BOLD, 20));
+        notifButton.setBackground(color);
+        notifButton.setForeground(Color.WHITE);
+        notifButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Notifications notifications = new Notifications(); // Create an instance of the Notifications class
+            Notifications.main(new String[0]); // Call the main method of the Notifications class
+            }
+        });
+        content.add(notifButton);
+        
+        // Create notif button
+        JButton calButton = new JButton("calendar");
+        calButton.setBounds(1279, 760, 100, 70);
+        calButton.setFont(new Font("Arial", Font.BOLD, 20));
+        calButton.setBackground(color);
+        calButton.setForeground(Color.WHITE);
+        calButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                String connectionURL = "static\\app_storage.db";
+                TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+                ResultSet rs = ttm.getAllRecords();
+                int monthNumber = 3;
+                Calendar calendar = new Calendar(rs, monthNumber);
+                calendar.setVisible(true);
+            }
+        });
+        content.add(calButton);
+
         //For importing the image
         task_pic.setIcon(task_icon);
         task_pic.setBounds(0,-130,wid,hei);
         cal_pic.setVisible(false);
+        //adding all the components
         content.add(cal_pic, BorderLayout.CENTER); 
         content.add(header);
         content.add(attributes1);
@@ -258,9 +363,11 @@ public class RectangleCanvas extends JComponent{
                         break;  
                     case KeyEvent.VK_RIGHT:
                         id +=1;
+                        rs = ttm.getRecord(id);
                         break;    
                     case KeyEvent.VK_LEFT:
                         id -=1;
+                        rs = ttm.getRecord(id);
                         break;   
                 }
             }

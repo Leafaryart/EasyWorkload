@@ -6,6 +6,7 @@ package sqliteapi;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * This class is mainly for testing the SQLiteAPI package if its working
@@ -48,7 +49,7 @@ public class DatabaseTest extends javax.swing.JFrame {
     TaskTableManager ttm;
     
     public DatabaseTest() {
-        String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
+        String connectionURL = "static\\app_storage.db";
         ttm = new TaskTableManager("task_list", connectionURL, "taskID");
         initComponents();
     }
@@ -198,7 +199,19 @@ public class DatabaseTest extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateRecordActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        ttm.deleteRecord(Integer.parseInt(txtID.getText()));
+        int id = Integer.parseInt(txtID.getText().trim());
+
+        // Delete the record
+         ttm.deleteRecord(id);
+
+        // Update the taskIDs of the following records
+        /*ArrayList<Task> tasks = ttm.getAllRecords();
+         for (Task task : tasks) {
+         if (task.getTaskID() > id) {
+            int newTaskID = task.getTaskID() - 1;
+            ttm.updateTaskID(task.getTaskID(), newTaskID);
+        }
+    }*/
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnInsertRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertRecordActionPerformed
