@@ -188,7 +188,7 @@ public class RectangleCanvas extends JComponent{
         deleteButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ttm.modifyRecord(title);
+            ttm.deleteRecord(id);
             }
         });
         content.add(deleteButton);
