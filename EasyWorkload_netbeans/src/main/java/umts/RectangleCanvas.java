@@ -17,19 +17,32 @@ import java.io.IOException;
 import DailyNotifs.Notifications;
 import umts.Calendar;
 import sqliteapi.DatabaseTest;
+import umts.MyText;
 public class RectangleCanvas extends JComponent{
     
     private int width;
     private int height;
     private Color bg;
     private MyRectangle rec;
-    private MyText task_name;
-    private MyText field1;
-    private MyText field2;
-    private MyText field3;
-    private MyText field4;
-    private MyText field5;
-    private MyText field6;
+    
+    private int taskID;
+    private String title;
+    private String description;
+    private String date_added;
+    private String deadline;
+    private String subject;
+    private String is_complete;
+    private String is_late;
+    private String is_subtask_of;
+    
+    
+    public MyText task_name= new MyText(100,0,-310,Color.WHITE, title);
+    private MyText field1=new MyText(60,180,-190,Color.WHITE, "Deadline          : "+ deadline);
+    private MyText field2=new MyText(60,180,-110,Color.WHITE, "Date Added        : " + date_added);
+    private MyText field3=new MyText(60,180,-30,Color.WHITE, "Subject           : " + subject);
+    private MyText field4=new MyText(60,180,50,Color.WHITE,  "Completion Status : " + is_complete);
+    private MyText field5=new MyText(60,180,130,Color.WHITE,   "Late Status       : " + is_late);
+    private MyText field6=new MyText(60,180,210,Color.WHITE,  "Subtask           : " + is_subtask_of);
     private Timer timer;
     private String connectionURL = "static\\app_storage.db";
     private TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
@@ -42,24 +55,19 @@ public class RectangleCanvas extends JComponent{
     private JLabel attributes4 = new JLabel("AAAA", SwingConstants.LEFT);
     private JLabel attributes5 = new JLabel("AAAA", SwingConstants.LEFT);
     private JLabel attributes6 = new JLabel("AAAA", SwingConstants.LEFT);
-    private int taskID;
-    private String title;
-    private String description;
-    private String date_added;
-    private String deadline;
-    private String subject;
-    private String is_complete;
-    private String is_late;
-    private String is_subtask_of;
+    
+    private boolean view=true;
     
     JFrame frame= new JFrame();
     Container content=frame.getContentPane();
     
-    int wid =1920, hei=1080;
+    int wid =1280, hei=720;
+    //int wid wid 1920, hei=1080;
+    int p =1920/wid;
     private Color color = Color.getHSBColor(0.55f, 0.67f, 0.84f);
     
     //For the Task Frame
-    ImageIcon task_icon = new ImageIcon("static\\Tasks_Frame.png");
+    ImageIcon task_icon = new ImageIcon("static\\TaskFrame.png");
     JLabel task_pic = new JLabel();
     //For the Calendar Frame
     ImageIcon cal_icon = new ImageIcon("static\\cat.jpg");
@@ -75,7 +83,7 @@ public class RectangleCanvas extends JComponent{
         height=h;
         bg=bgc;
         setPreferredSize(new Dimension(width,height)); 
-        rec=new MyRectangle(0,0,1920,1080,100,100);
+        rec=new MyRectangle(0,0,wid,hei,100,100);
         
         rs = ttm.getRecord(id);
         try {
@@ -89,31 +97,21 @@ public class RectangleCanvas extends JComponent{
                 is_complete = rs.getString("is_complete");
                 is_late = rs.getString("is_late");
                 is_subtask_of = rs.getString("is_subtask_of");
-                System.out.println(taskID + ", " + title + ", " + description +
-                        ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
-                        + ", " + is_subtask_of);
+                
             } } catch (SQLException ex) {
             Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println(taskID + ", " + title + ", " + description +
-                        ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
-                        + ", " + is_subtask_of);
+        //System.out.println(taskID + ", " + title + ", " + description +
+        //                ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
+        //                + ", " + is_subtask_of);
+        
+        
         //For the Calendar
         cal_pic.setIcon(cal_icon);
         Dimension size = cal_pic.getPreferredSize();
-        cal_pic.setBounds(0,-130,wid,hei);
-
-        //For the Header, TEDDDY LOOK HERE
-        task_name=new MyText(100,-200,-480,Color.WHITE, title);
-        field1=new MyText(60,180,-340,Color.WHITE, "Deadline          : "+ deadline);
-        field2=new MyText(60,180,-240,Color.WHITE, "Date Added        : " + date_added);
-        field3=new MyText(60,180,-140,Color.WHITE, "Subject           : " + subject);
-        field4=new MyText(60,180,-40,Color.WHITE,  "Completion Status : " + is_complete);
-        field5=new MyText(60,180,40,Color.WHITE,   "Late Status       : " + is_late);
-        field6=new MyText(60,180,140,Color.WHITE,  "Subtask           : " + is_subtask_of);
-        
-        //For the Header, TEDDDY LOOK HERE
+        cal_pic.setBounds(0,0,wid,hei);
+        //For Header
         header.setForeground(task_name.getColor());
         header.setBounds(task_name.getX(),task_name.getY(),wid,hei);
         header.setFont(new Font("Impact", Font.PLAIN, task_name.getSize()));
@@ -141,11 +139,11 @@ public class RectangleCanvas extends JComponent{
         attributes6.setForeground(field6.getColor());
         attributes6.setBounds(field6.getX(),field6.getY(),wid,hei);
         attributes6.setFont(new Font("Impact", Font.PLAIN, field6.getSize()));  
-
+        
         // Create right button
         JButton rightButton = new JButton(">>");
-        rightButton.setBounds(1410, 410, 100, 100);
-        rightButton.setFont(new Font("Arial", Font.BOLD, 40));
+        rightButton.setBounds(1190, 373, 66, 66);
+        rightButton.setFont(new Font("Arial", Font.BOLD, 26));
         rightButton.setBackground(color);
         rightButton.setForeground(Color.WHITE);
         rightButton.addActionListener(new ActionListener() {
@@ -165,8 +163,8 @@ public class RectangleCanvas extends JComponent{
 
         // Create left button
         JButton leftButton = new JButton("<<");
-        leftButton.setBounds(30, 410, 100, 100);
-        leftButton.setFont(new Font("Arial", Font.BOLD, 40));
+        leftButton.setBounds(30, 373, 66, 66);
+        leftButton.setFont(new Font("Arial", Font.BOLD, 26));
         leftButton.setBackground(color);
         leftButton.setForeground(Color.WHITE);
         leftButton.addActionListener(new ActionListener() {
@@ -181,9 +179,9 @@ public class RectangleCanvas extends JComponent{
         content.add(leftButton);
         // Create delete button
         JButton deleteButton = new JButton("delete");
-        deleteButton.setBounds(160, 760, 100, 70);
-        deleteButton.setFont(new Font("Arial", Font.BOLD, 20));
-        deleteButton.setBackground(color);
+        deleteButton.setBounds(128, 655, 80, 56);
+        deleteButton.setFont(new Font("Arial", Font.BOLD, 10));
+        deleteButton.setBackground(new Color(54,57,64));
         deleteButton.setForeground(Color.WHITE);
         deleteButton.addActionListener(new ActionListener() {
         @Override
@@ -195,9 +193,9 @@ public class RectangleCanvas extends JComponent{
         
         // Create edit button
         JButton editButton = new JButton("edit");
-        editButton.setBounds(270, 760, 100, 70);
-        editButton.setFont(new Font("Arial", Font.BOLD, 20));
-        editButton.setBackground(color);
+        editButton.setBounds(317, 655, 80, 56);
+        editButton.setFont(new Font("Arial", Font.BOLD, 10));
+        editButton.setBackground(new Color(54,57,64));
         editButton.setForeground(Color.WHITE);
         editButton.addActionListener(new ActionListener() {
         @Override
@@ -209,10 +207,10 @@ public class RectangleCanvas extends JComponent{
         content.add(editButton);
     
         // Create notif button
-        JButton notifButton = new JButton("notif");
-        notifButton.setBounds(1169, 760, 100, 70);
-        notifButton.setFont(new Font("Arial", Font.BOLD, 20));
-        notifButton.setBackground(color);
+        JButton notifButton = new JButton("notify");
+        notifButton.setBounds(883, 655, 80, 56);
+        notifButton.setFont(new Font("Arial", Font.BOLD, 10));
+        notifButton.setBackground(new Color(54,57,64));
         notifButton.setForeground(Color.WHITE);
         notifButton.addActionListener(new ActionListener() {
         @Override
@@ -223,11 +221,11 @@ public class RectangleCanvas extends JComponent{
         });
         content.add(notifButton);
         
-        // Create notif button
+        // Create cal button
         JButton calButton = new JButton("calendar");
-        calButton.setBounds(1279, 760, 100, 70);
-        calButton.setFont(new Font("Arial", Font.BOLD, 20));
-        calButton.setBackground(color);
+        calButton.setBounds(1072, 655, 80, 56);
+        calButton.setFont(new Font("Arial", Font.BOLD, 10));
+        calButton.setBackground(new Color(54,57,64));
         calButton.setForeground(Color.WHITE);
         calButton.addActionListener(new ActionListener() {
         @Override
@@ -241,10 +239,40 @@ public class RectangleCanvas extends JComponent{
             }
         });
         content.add(calButton);
+        
+        // Create viewA button
+        JButton viewA = new JButton("+");
+        viewA.setBounds(1227, 110, 53, 50);
+        viewA.setFont(new Font("Arial", Font.BOLD, 30));
+        viewA.setBackground(new Color(54,57,64));
+        viewA.setForeground(Color.WHITE);
+        viewA.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                view=true;
+            }
+        });
+        content.add(viewA);
+        
+        // Create viewA button
+        JButton viewB = new JButton("-");
+        viewB.setBounds(1227, 160, 53, 50);
+        viewB.setFont(new Font("Arial", Font.BOLD, 30));
+        viewB.setBackground(new Color(54,57,64));
+        viewB.setForeground(Color.WHITE);
+        viewB.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                view=false;
+                
+            }
+        });
+        System.out.println(task_name.getString()+"\n");
+        content.add(viewB);
 
         //For importing the image
         task_pic.setIcon(task_icon);
-        task_pic.setBounds(0,-130,wid,hei);
+        task_pic.setBounds(0,0,wid,hei);
         cal_pic.setVisible(false);
         //adding all the components
         content.add(cal_pic, BorderLayout.CENTER); 
@@ -303,19 +331,29 @@ public class RectangleCanvas extends JComponent{
                         is_complete = rs.getString("is_complete");
                         is_late = rs.getString("is_late");
                         is_subtask_of = rs.getString("is_subtask_of");
-                        System.out.println(taskID + ", " + title + ", " + description +
-                            ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
-                            + ", " + is_subtask_of);
+                        
                     } } catch (SQLException ex) {
                     Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                header.setText(title);
-                attributes1.setText("Deadline                       : "+ deadline);
-                attributes2.setText("Date Added                  : " + date_added);
-                attributes3.setText("Subject                          : " + subject);
-                attributes4.setText("Completion Status : " + is_complete);
-                attributes5.setText("Late Status                   : " + is_late);
-                attributes6.setText("Description                 : " + description);
+                if(view==true){
+                    header.setText(title);
+                    attributes1.setText("Deadline                       : "+ deadline);
+                    attributes2.setText("Date Added                  : " + date_added);
+                    attributes3.setText("Subject                          : " + subject);
+                    attributes4.setText("Completion Status : " + is_complete);
+                    attributes5.setText("Late Status                   : " + is_late);
+                    attributes6.setText("Description                 : " + description);
+                }
+                else{
+                    header.setText("Date");
+                    attributes1.setText("- "+"Task1");
+                    attributes2.setText("- "+"Task2");
+                    attributes3.setText("- "+"Task3");
+                    attributes4.setText("- "+"Task4");
+                    attributes5.setText("- "+"Task5");
+                    attributes6.setText("- "+"Task6");
+                }
+                
                 repaint();
             }
         };
