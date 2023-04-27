@@ -274,9 +274,10 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday5 = new javax.swing.JTextArea();
         lblMonth = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
+        prevButton = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyWorkload - Calendar");
@@ -687,18 +688,55 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.setBounds(200, 10, 390, 40);
         lblMonth.getAccessibleContext().setAccessibleName("");
 
-        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\admin\\repositories\\EasyWorkload\\EasyWorkload_netbeans\\static\\Calendar_Frame_downsized.png")); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 800, 450);
+        lblBackground.setBounds(0, 0, 0, 0);
+
+        prevButton.setText("Prev");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(prevButton);
+        prevButton.setBounds(20, 30, 75, 23);
+
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nextButton);
+        nextButton.setBounds(690, 30, 72, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        monthNumber--;
+        if (monthNumber < 1) {
+            monthNumber = 12;
+        }
+        setMonthName();
+        format_calendar();
+    }//GEN-LAST:event_prevButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        monthNumber++;
+        if (monthNumber > 12) {
+            monthNumber = 1;
+        }
+        setMonthName();
+        format_calendar();
+    }//GEN-LAST:event_nextButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblMonth;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JButton prevButton;
     private javax.swing.JTextArea txtFriday1;
     private javax.swing.JTextArea txtFriday2;
     private javax.swing.JTextArea txtFriday3;
