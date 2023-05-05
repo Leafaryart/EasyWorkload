@@ -232,9 +232,9 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday4 = new javax.swing.JTextArea();
         txtSaturday5 = new javax.swing.JTextArea();
         lblMonth = new javax.swing.JLabel();
-        lblBackground = new javax.swing.JLabel();
         prevButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
+        lblBackground = new javax.swing.JLabel();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -647,26 +647,33 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.setBounds(200, 10, 390, 40);
         lblMonth.getAccessibleContext().setAccessibleName("");
 
-        getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 0, 0);
-
-        prevButton.setText("Prev");
+        prevButton.setBackground(new java.awt.Color(255, 255, 255));
+        prevButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        prevButton.setForeground(new java.awt.Color(0, 0, 0));
+        prevButton.setText("<<");
         prevButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prevButtonActionPerformed(evt);
             }
         });
         getContentPane().add(prevButton);
-        prevButton.setBounds(20, 30, 75, 23);
+        prevButton.setBounds(20, 240, 50, 50);
 
-        nextButton.setText("Next");
+        nextButton.setBackground(new java.awt.Color(255, 255, 255));
+        nextButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nextButton.setForeground(new java.awt.Color(0, 0, 0));
+        nextButton.setText(">>");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextButtonActionPerformed(evt);
             }
         });
         getContentPane().add(nextButton);
-        nextButton.setBounds(690, 30, 72, 23);
+        nextButton.setBounds(730, 240, 50, 50);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon("static\\Calendar_Frame_downsized.png"));
+        getContentPane().add(lblBackground);
+        lblBackground.setBounds(0, 0, 820, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

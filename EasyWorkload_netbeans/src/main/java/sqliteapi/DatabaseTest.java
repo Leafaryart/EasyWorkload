@@ -76,43 +76,63 @@ public class DatabaseTest extends javax.swing.JFrame {
         btnUpdateRecord = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnInsertRecord = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 255, 204));
+        setForeground(new java.awt.Color(102, 255, 204));
         setMaximumSize(null);
         setMinimumSize(new java.awt.Dimension(720, 525));
         getContentPane().setLayout(null);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("ID:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(50, 50, 20, 40);
+        jLabel1.setBounds(30, 50, 20, 40);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("IsLate");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 360, 101, 32);
+        jLabel2.setBounds(30, 360, 101, 32);
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Title:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 90, 30, 40);
+        jLabel3.setBounds(30, 90, 30, 40);
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Description:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(50, 130, 101, 32);
+        jLabel4.setBounds(30, 130, 101, 32);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Date Added:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(50, 240, 70, 32);
+        jLabel5.setBounds(30, 240, 70, 32);
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Deadline:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(50, 280, 70, 32);
+        jLabel6.setBounds(30, 280, 70, 32);
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("IsComplete");
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(50, 320, 101, 32);
+        jLabel8.setBounds(30, 320, 101, 32);
         getContentPane().add(txtID);
-        txtID.setBounds(90, 60, 70, 30);
+        txtID.setBounds(130, 60, 70, 30);
         getContentPane().add(txtTitle);
-        txtTitle.setBounds(90, 100, 71, 30);
+        txtTitle.setBounds(130, 100, 71, 30);
         getContentPane().add(txtDateAdded);
         txtDateAdded.setBounds(130, 242, 130, 30);
         getContentPane().add(txtDeadline);
@@ -122,6 +142,9 @@ public class DatabaseTest extends javax.swing.JFrame {
         getContentPane().add(txtIsLate);
         txtIsLate.setBounds(130, 360, 64, 30);
 
+        btnGetRecord.setBackground(new java.awt.Color(0, 0, 0));
+        btnGetRecord.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGetRecord.setForeground(new java.awt.Color(255, 255, 255));
         btnGetRecord.setText("Get Record");
         btnGetRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,10 +152,13 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnGetRecord);
-        btnGetRecord.setBounds(480, 120, 170, 40);
+        btnGetRecord.setBounds(520, 160, 170, 40);
         getContentPane().add(txtDescription);
         txtDescription.setBounds(130, 140, 320, 90);
 
+        btnUpdateRecord.setBackground(new java.awt.Color(0, 0, 0));
+        btnUpdateRecord.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUpdateRecord.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdateRecord.setText("Update Record");
         btnUpdateRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,8 +166,11 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnUpdateRecord);
-        btnUpdateRecord.setBounds(480, 60, 170, 40);
+        btnUpdateRecord.setBounds(520, 50, 170, 40);
 
+        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete Record");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,8 +178,11 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDelete);
-        btnDelete.setBounds(480, 180, 170, 50);
+        btnDelete.setBounds(520, 270, 170, 50);
 
+        btnInsertRecord.setBackground(new java.awt.Color(0, 0, 0));
+        btnInsertRecord.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnInsertRecord.setForeground(new java.awt.Color(255, 255, 255));
         btnInsertRecord.setText("Insert Record");
         btnInsertRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +190,11 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnInsertRecord);
-        btnInsertRecord.setBounds(480, 250, 170, 50);
+        btnInsertRecord.setBounds(520, 390, 170, 50);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("static\\task_editor.jpg"));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(0, 0, 710, 510);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -240,6 +276,7 @@ public class DatabaseTest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField txtDateAdded;
     private javax.swing.JTextField txtDeadline;
