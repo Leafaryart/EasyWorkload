@@ -648,7 +648,7 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.getAccessibleContext().setAccessibleName("");
 
         prevButton.setBackground(new java.awt.Color(255, 255, 255));
-        prevButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        prevButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         prevButton.setForeground(new java.awt.Color(0, 0, 0));
         prevButton.setText("<<");
         prevButton.addActionListener(new java.awt.event.ActionListener() {
@@ -660,7 +660,7 @@ public class Calendar extends javax.swing.JFrame {
         prevButton.setBounds(20, 240, 50, 50);
 
         nextButton.setBackground(new java.awt.Color(255, 255, 255));
-        nextButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nextButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         nextButton.setForeground(new java.awt.Color(0, 0, 0));
         nextButton.setText(">>");
         nextButton.addActionListener(new java.awt.event.ActionListener() {
