@@ -13,6 +13,7 @@ import sqliteapi.*;
 /**
  *
  * @author Ray Rafael Abenido
+ * @author Geoffrey Co
  */
 public class Calendar extends javax.swing.JFrame {
 
@@ -59,13 +60,11 @@ public class Calendar extends javax.swing.JFrame {
 
     public Calendar(ResultSet rs, int monthNumber) {
         days = new ArrayList<JTextArea>();
-        //information = new ArrayList<String>();
         this.rs = rs;
         this.monthNumber = monthNumber;
         initComponents();
         setMonthName();
         append_days();
-        //format_rs();
         format_calendar();  
         appendTasks();
     }
@@ -187,46 +186,6 @@ public class Calendar extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }
-    
-    private void format_rs() {
-    try {
-        LocalDate today = LocalDate.now();
-        LocalDate firstDayOfMonth = LocalDate.of(LocalDate.now().getYear(), monthNumber, 1);
-        int firstDayIndex = firstDayOfMonth.getDayOfWeek().getValue() % 7;
-        if (firstDayIndex == 0) {
-            firstDayIndex = 7;
-        }
-        
-        // Retrieve tasks from the database
-        String url = "jdbc:sqlite:static\\app_storage.db";
-        Connection conn = DriverManager.getConnection(url);
-        String sql = "SELECT title, deadline FROM task_list WHERE strftime('%m', deadline) = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, String.format("%02d", monthNumber));
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-            String title = rs.getString("title");
-            String deadline = rs.getString("deadline");
-            LocalDate parsedDate = LocalDate.parse(deadline, DateTimeFormatter.ISO_LOCAL_DATE);
-
-            int dayNumber = parsedDate.getDayOfMonth();
-            JTextArea dayTextArea = days.get(firstDayIndex + dayNumber - 2);
-            dayTextArea.append(title + "\n");
-
-            if (parsedDate.isEqual(today)) {
-                dayTextArea.setBackground(Color.YELLOW);
-            }
-        }
-
-        rs.close();
-        pstmt.close();
-        conn.close();
-    } catch (SQLException e) {
-        System.out.println("Something went wrong while accessing the database");
-        e.printStackTrace();
-    }
-}
 
     private void setMonthName() {
         Month month = Month.of(monthNumber);
@@ -717,8 +676,9 @@ public class Calendar extends javax.swing.JFrame {
         if (monthNumber < 1) {
             monthNumber = 12;
         }
-        setMonthName();
-        format_calendar();
+        Calendar newCalendar = new Calendar(rs, monthNumber);
+        newCalendar.appendTasks();
+        newCalendar.setVisible(true);    
     }//GEN-LAST:event_prevButtonActionPerformed
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
@@ -726,8 +686,9 @@ public class Calendar extends javax.swing.JFrame {
         if (monthNumber > 12) {
             monthNumber = 1;
         }
-        setMonthName();
-        format_calendar();
+        Calendar newCalendar = new Calendar(rs, monthNumber);
+        newCalendar.appendTasks();
+        newCalendar.setVisible(true);    
     }//GEN-LAST:event_nextButtonActionPerformed
 
 
