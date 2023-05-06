@@ -18,6 +18,9 @@ import DailyNotifs.Notifications;
 import umts.Calendar;
 import sqliteapi.DatabaseTest;
 import umts.MyText;
+import java.util.ArrayList;
+
+
 public class RectangleCanvas extends JComponent{
     
     private int width;
@@ -57,6 +60,8 @@ public class RectangleCanvas extends JComponent{
     private JLabel attributes6 = new JLabel("AAAA", SwingConstants.LEFT);
     
     private boolean view=true;
+    private ArrayList<Integer> taskIDList = new ArrayList<Integer>();
+
     
     JFrame frame= new JFrame();
     Container content=frame.getContentPane();
@@ -75,6 +80,7 @@ public class RectangleCanvas extends JComponent{
     
     int previousID=0;
     //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    // also ray: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     
     private MyRectangle r1;
     private MyRectangle r2;
@@ -97,8 +103,8 @@ public class RectangleCanvas extends JComponent{
                 is_complete = rs.getString("is_complete");
                 is_late = rs.getString("is_late");
                 is_subtask_of = rs.getString("is_subtask_of");
-                
-            } } catch (SQLException ex) {
+                }
+            } catch (SQLException ex) {
             Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -106,6 +112,7 @@ public class RectangleCanvas extends JComponent{
         //                ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
         //                + ", " + is_subtask_of);
         
+        populateTaskIDList();
         
         //For the Calendar
         cal_pic.setIcon(cal_icon);
@@ -156,7 +163,8 @@ public class RectangleCanvas extends JComponent{
                 id = taskID;
                 previousID =taskID;
             }*/
-            id+=1;
+            //id+=1;
+            incrementTaskDisplay();
         }
         });
         content.add(rightButton);
@@ -170,10 +178,11 @@ public class RectangleCanvas extends JComponent{
         leftButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (id > 1) {
+            /*if (id > 1) {
                 id -= 1;
                 taskID = id;
-                }
+                }*/
+            decrementTaskDisplay();
             }
         });
         content.add(leftButton);
@@ -353,7 +362,6 @@ public class RectangleCanvas extends JComponent{
                     attributes5.setText("- "+"Task5");
                     attributes6.setText("- "+"Task6");
                 }
-                
                 repaint();
             }
         };
@@ -414,7 +422,7 @@ public class RectangleCanvas extends JComponent{
         content.setFocusable(true);
         content.requestFocusInWindow();
     }
-   public JFrame getFrame(){
+    public JFrame getFrame(){
         return frame;
     }
     public JLabel getLabel(){
@@ -423,4 +431,81 @@ public class RectangleCanvas extends JComponent{
     public Container getContentPane(){
         return content;
     }
+    
+    // Ray's functions
+    private void populateTaskIDList() {
+        rs = ttm.getAllRecords();
+        try {
+            while(rs.next()) {
+                taskIDList.add(rs.getInt("taskID"));
+            }
+        } catch (Exception e) {
+            System.out.println("getTaskID failed to run");
+        }
+        
+        System.out.println("TaskIDList populated with the following details: ");
+        for (int i: taskIDList){
+            System.out.println(i);
+        }
+    }
+    
+    private void incrementTaskDisplay() {
+        int old_index = taskIDList.indexOf(id);
+        try {
+            id = taskIDList.get(old_index + 1);
+            ResultSet rs = ttm.getRecord(id);
+            
+            while (rs.next()) {
+                title = rs.getString("title");
+                description = rs.getString("description");
+                date_added = rs.getString("date_added");
+                deadline = rs.getString("deadline");
+                subject = rs.getString("subject");
+                is_complete = rs.getString("is_complete");
+                is_late = rs.getString("is_late");
+            }
+            
+            header.setText(title);
+            attributes1.setText("Deadline                       : "+ deadline);
+            attributes2.setText("Date Added                  : " + date_added);
+            attributes3.setText("Subject                          : " + subject);
+            attributes4.setText("Completion Status : " + is_complete);
+            attributes5.setText("Late Status                   : " + is_late);
+            attributes6.setText("Description                 : " + description);
+            
+        } catch(Exception e) {
+            System.out.println("Error occured trying to update task display");
+        }
+        
+    }
+    
+    private void decrementTaskDisplay() {
+        int old_index = taskIDList.indexOf(id);
+        try {
+            id = taskIDList.get(old_index - 1);
+            ResultSet rs = ttm.getRecord(id);
+            
+            while (rs.next()) {
+                title = rs.getString("title");
+                description = rs.getString("description");
+                date_added = rs.getString("date_added");
+                deadline = rs.getString("deadline");
+                subject = rs.getString("subject");
+                is_complete = rs.getString("is_complete");
+                is_late = rs.getString("is_late");
+            }
+            
+            header.setText(title);
+            attributes1.setText("Deadline                       : "+ deadline);
+            attributes2.setText("Date Added                  : " + date_added);
+            attributes3.setText("Subject                          : " + subject);
+            attributes4.setText("Completion Status : " + is_complete);
+            attributes5.setText("Late Status                   : " + is_late);
+            attributes6.setText("Description                 : " + description);
+            
+        } catch(Exception e) {
+            System.out.println("Error occured trying to update task display");
+        }
+    }
+    
 }
