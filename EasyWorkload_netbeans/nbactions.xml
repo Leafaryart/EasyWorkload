@@ -13,9 +13,7 @@
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
-                <exec.mainClass>main.EasyWorkload</exec.mainClass>
-                <exec.mainClass>umts.Calendar</exec.mainClass>
-                <exec.mainClass>sqliteapi.DatabaseTest</exec.mainClass>
+                <exec.mainClass>umts.UMTS</exec.mainClass>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -32,7 +30,7 @@
                 <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.appArgs></exec.appArgs>
-                <exec.mainClass>main.EasyWorkload</exec.mainClass>
+                <exec.mainClass>umts.Calendar</exec.mainClass>
                 <exec.mainClass>umts.Calendar</exec.mainClass>
                 <exec.mainClass>sqliteapi.DatabaseTest</exec.mainClass>
                 <exec.executable>java</exec.executable>
@@ -51,7 +49,7 @@
             <properties>
                 <exec.vmArgs></exec.vmArgs>
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.mainClass>main.EasyWorkload</exec.mainClass>
+                <exec.mainClass>umts.Calendar</exec.mainClass>
                 <exec.mainClass>umts.Calendar</exec.mainClass>
                 <exec.mainClass>sqliteapi.DatabaseTest</exec.mainClass>
                 <exec.executable>java</exec.executable>

@@ -21,7 +21,7 @@ import java.time.Month;
  */
 public class EasyWorkload {
     public static void main(String[] args) {
-        String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
+        String connectionURL = "static\\app_storage.db";
         TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
 
         ResultSet rs = ttm.getAllRecords();

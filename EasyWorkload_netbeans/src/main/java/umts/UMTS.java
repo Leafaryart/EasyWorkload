@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 public class UMTS {
     public static void main(String[] args) {
     //For the Canvas
-    int wid =1920, hei=1080;
+    int wid =1280, hei=720;
     
     RectangleCanvas rc=new RectangleCanvas(wid,hei,Color.white);
     JFrame frame= rc.getFrame();
@@ -29,5 +29,6 @@ public class UMTS {
     frame.pack();
     frame.setVisible(true);
     rc.setUpTimer();
+    rc.setUpKL();
 }
 }

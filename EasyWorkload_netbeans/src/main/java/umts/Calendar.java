@@ -13,6 +13,7 @@ import sqliteapi.*;
 /**
  *
  * @author Ray Rafael Abenido
+ * @author Geoffrey Co
  */
 public class Calendar extends javax.swing.JFrame {
 
@@ -59,13 +60,11 @@ public class Calendar extends javax.swing.JFrame {
 
     public Calendar(ResultSet rs, int monthNumber) {
         days = new ArrayList<JTextArea>();
-        //information = new ArrayList<String>();
         this.rs = rs;
         this.monthNumber = monthNumber;
         initComponents();
         setMonthName();
         append_days();
-        //format_rs();
         format_calendar();  
         appendTasks();
     }
@@ -115,6 +114,7 @@ public class Calendar extends javax.swing.JFrame {
         days.add(txtThursday5);
         days.add(txtFriday5);
         days.add(txtSaturday5);
+        System.out.println("Finished running append_days()");
     }
    /**
     * 
@@ -149,6 +149,7 @@ public class Calendar extends javax.swing.JFrame {
                     }
                 }
             }
+        System.out.println("Finished running format_calendar()");
         } catch (Exception e) {
             System.out.println("Something went wrong while formatting");
             e.printStackTrace();
@@ -183,54 +184,16 @@ public class Calendar extends javax.swing.JFrame {
                 }
             }
         }
+        System.out.println("Finished running append_tasks()");
     } catch (SQLException e) {
         e.printStackTrace();
     }
     }
-    
-    private void format_rs() {
-    try {
-        LocalDate today = LocalDate.now();
-        LocalDate firstDayOfMonth = LocalDate.of(LocalDate.now().getYear(), monthNumber, 1);
-        int firstDayIndex = firstDayOfMonth.getDayOfWeek().getValue() % 7;
-        if (firstDayIndex == 0) {
-            firstDayIndex = 7;
-        }
-        
-        // Retrieve tasks from the database
-        String url = "jdbc:sqlite:static\\app_storage.db";
-        Connection conn = DriverManager.getConnection(url);
-        String sql = "SELECT title, deadline FROM task_list WHERE strftime('%m', deadline) = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, String.format("%02d", monthNumber));
-        ResultSet rs = pstmt.executeQuery();
-
-        while (rs.next()) {
-            String title = rs.getString("title");
-            String deadline = rs.getString("deadline");
-            LocalDate parsedDate = LocalDate.parse(deadline, DateTimeFormatter.ISO_LOCAL_DATE);
-
-            int dayNumber = parsedDate.getDayOfMonth();
-            JTextArea dayTextArea = days.get(firstDayIndex + dayNumber - 2);
-            dayTextArea.append(title + "\n");
-
-            if (parsedDate.isEqual(today)) {
-                dayTextArea.setBackground(Color.YELLOW);
-            }
-        }
-
-        rs.close();
-        pstmt.close();
-        conn.close();
-    } catch (SQLException e) {
-        System.out.println("Something went wrong while accessing the database");
-        e.printStackTrace();
-    }
-}
 
     private void setMonthName() {
         Month month = Month.of(monthNumber);
         lblMonth.setText(month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        System.out.println("Finished running setMonthName()");
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -273,10 +236,11 @@ public class Calendar extends javax.swing.JFrame {
         txtSaturday4 = new javax.swing.JTextArea();
         txtSaturday5 = new javax.swing.JTextArea();
         lblMonth = new javax.swing.JLabel();
+        prevButton = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EasyWorkload - Calendar");
@@ -687,18 +651,70 @@ public class Calendar extends javax.swing.JFrame {
         lblMonth.setBounds(200, 10, 390, 40);
         lblMonth.getAccessibleContext().setAccessibleName("");
 
-        lblBackground.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\EasyWorkload_netbeans\\src\\main\\java\\staticfiles\\Calendar_Frame_downsized.png")); // NOI18N
+        prevButton.setBackground(new java.awt.Color(255, 255, 255));
+        prevButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        prevButton.setForeground(new java.awt.Color(0, 0, 0));
+        prevButton.setText("<<");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(prevButton);
+        prevButton.setBounds(20, 240, 50, 50);
+
+        nextButton.setBackground(new java.awt.Color(255, 255, 255));
+        nextButton.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        nextButton.setForeground(new java.awt.Color(0, 0, 0));
+        nextButton.setText(">>");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nextButton);
+        nextButton.setBounds(730, 240, 50, 50);
+
+        lblBackground.setIcon(new javax.swing.ImageIcon("static\\Calendar_Frame_downsized.png"));
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(0, 0, 800, 450);
+        lblBackground.setBounds(0, 0, 820, 450);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        monthNumber--;
+        if (monthNumber < 1) {
+            monthNumber = 12;
+        }
+        String connectionURL = "static\\app_storage.db";
+        TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+        ResultSet rs = ttm.getAllRecords();
+        Calendar newCalendar = new Calendar(rs, monthNumber);
+        this.dispose();
+        newCalendar.setVisible(true);    
+    }//GEN-LAST:event_prevButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        monthNumber++;
+        if (monthNumber > 12) {
+            monthNumber = 1;
+        }
+        String connectionURL = "static\\app_storage.db";
+        TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+        ResultSet rs = ttm.getAllRecords();
+        Calendar newCalendar = new Calendar(rs, monthNumber);
+        this.dispose();
+        newCalendar.setVisible(true);    
+    }//GEN-LAST:event_nextButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblMonth;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JButton prevButton;
     private javax.swing.JTextArea txtFriday1;
     private javax.swing.JTextArea txtFriday2;
     private javax.swing.JTextArea txtFriday3;
