@@ -26,10 +26,17 @@ public class Notifications {
     finalLabel.setText("Selected Time: " + hourSlider.getValue() + " hour/s, " + minuteSlider.getValue() + " minute/s");
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
 =======
     public static String connectionURL = "static\\app_storage.db";
 >>>>>>> origin/geoff
+=======
+    public static String connectionURL = "static\\app_storage.db";
+=======
+    public static String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
+>>>>>>> main
+>>>>>>> geoff
     public static TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
     
     public static int taskID;
@@ -43,9 +50,15 @@ public class Notifications {
     public static String is_subtask_of;
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 >>>>>>> origin/geoff
+=======
+=======
+    
+>>>>>>> main
+>>>>>>> geoff
     
   public static void main(String[] args) {
       
