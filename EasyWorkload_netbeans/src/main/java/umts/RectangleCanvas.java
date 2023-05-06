@@ -38,6 +38,8 @@ public class RectangleCanvas extends JComponent{
     private String is_late;
     private String is_subtask_of;
     
+    private String due;
+    
     
     public MyText task_name= new MyText(100,0,-310,Color.WHITE, title);
     private MyText field1=new MyText(60,180,-190,Color.WHITE, "Deadline          : "+ deadline);
@@ -263,7 +265,7 @@ public class RectangleCanvas extends JComponent{
         });
         content.add(viewA);
         
-        // Create viewA button
+        // Create viewB button
         JButton viewB = new JButton("-");
         viewB.setBounds(1227, 160, 53, 50);
         viewB.setFont(new Font("Arial", Font.BOLD, 30));
@@ -354,13 +356,33 @@ public class RectangleCanvas extends JComponent{
                     attributes6.setText("Description                 : " + description);
                 }
                 else{
-                    header.setText("Date");
-                    attributes1.setText("- "+"Task1");
-                    attributes2.setText("- "+"Task2");
-                    attributes3.setText("- "+"Task3");
-                    attributes4.setText("- "+"Task4");
-                    attributes5.setText("- "+"Task5");
-                    attributes6.setText("- "+"Task6");
+                    header.setText(deadline);
+                    
+                    for (int i = 0; i <= taskIDList.size(); i++) {
+                        rs = ttm.getRecord(i);
+                        try {
+                            while (rs.next()) {
+                                title = rs.getString("title");
+                                due = rs.getString("deadline");
+                        
+                        } } catch (SQLException ex) {
+                            Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        System.out.println(title);
+                       if (deadline.equals(due)) {
+                           attributes1.setText("- "+ title);
+                           
+                       }
+                    
+                    }
+                    
+                    attributes2.setText("");
+                    attributes3.setText("");
+                    attributes4.setText("");
+                    attributes5.setText("");
+                    attributes6.setText("");
+                    
+
                 }
                 repaint();
             }
@@ -465,14 +487,15 @@ public class RectangleCanvas extends JComponent{
                 is_late = rs.getString("is_late");
             }
             
-            header.setText(title);
-            attributes1.setText("Deadline                       : "+ deadline);
-            attributes2.setText("Date Added                  : " + date_added);
-            attributes3.setText("Subject                          : " + subject);
-            attributes4.setText("Completion Status : " + is_complete);
-            attributes5.setText("Late Status                   : " + is_late);
-            attributes6.setText("Description                 : " + description);
-            
+            if (view==true){
+               header.setText(title);
+               attributes1.setText("Deadline                       : "+ deadline);
+               attributes2.setText("Date Added                  : " + date_added);
+               attributes3.setText("Subject                          : " + subject);
+               attributes4.setText("Completion Status : " + is_complete);
+               attributes5.setText("Late Status                   : " + is_late);
+               attributes6.setText("Description                 : " + description);
+        } 
         } catch(Exception e) {
             System.out.println("Error occured trying to update task display");
         }
@@ -494,15 +517,15 @@ public class RectangleCanvas extends JComponent{
                 is_complete = rs.getString("is_complete");
                 is_late = rs.getString("is_late");
             }
-            
-            header.setText(title);
-            attributes1.setText("Deadline                       : "+ deadline);
-            attributes2.setText("Date Added                  : " + date_added);
-            attributes3.setText("Subject                          : " + subject);
-            attributes4.setText("Completion Status : " + is_complete);
-            attributes5.setText("Late Status                   : " + is_late);
-            attributes6.setText("Description                 : " + description);
-            
+            if (view==true){
+               header.setText(title);
+               attributes1.setText("Deadline                       : "+ deadline);
+               attributes2.setText("Date Added                  : " + date_added);
+               attributes3.setText("Subject                          : " + subject);
+               attributes4.setText("Completion Status : " + is_complete);
+               attributes5.setText("Late Status                   : " + is_late);
+               attributes6.setText("Description                 : " + description);
+        }
         } catch(Exception e) {
             System.out.println("Error occured trying to update task display");
         }
