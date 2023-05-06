@@ -16,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.EasyWorkload;
+
 
 
 
@@ -23,7 +25,11 @@ public class Notifications {
     private void updateFinalLabel(JSlider hourSlider, JSlider minuteSlider, JLabel finalLabel) {
     finalLabel.setText("Selected Time: " + hourSlider.getValue() + " hour/s, " + minuteSlider.getValue() + " minute/s");
 }
+<<<<<<< HEAD
     public static String connectionURL = "static\\app_storage.db";
+=======
+    public static String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
+>>>>>>> main
     public static TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
     
     public static int taskID;
@@ -36,8 +42,32 @@ public class Notifications {
     public static String is_late;
     public static String is_subtask_of;
     
+<<<<<<< HEAD
+=======
+    
+>>>>>>> main
     
   public static void main(String[] args) {
+      
+    ResultSet rs;
+        rs = ttm.getRecord(1);
+        try {
+            while (rs.next()) {
+                taskID = rs.getInt("taskID");
+                title = rs.getString("title");
+                description = rs.getString("description");
+                date_added = rs.getString("date_added");
+                deadline = rs.getString("deadline");
+                subject = rs.getString("subject");
+                is_complete = rs.getString("is_complete");
+                is_late = rs.getString("is_late");
+                is_subtask_of = rs.getString("is_subtask_of");
+                System.out.println(taskID + ", " + title + ", " + description +
+                        ", " + date_added + ", " + deadline + ", " + subject + ", " + is_complete + ", " + is_late
+                        + ", " + is_subtask_of);
+            } } catch (SQLException ex) {
+            Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
+        }
      
     JFrame frame = new JFrame("Notifications");
     frame.setSize(660, 800);
@@ -243,7 +273,7 @@ dconfirmButton.addActionListener(new ActionListener() {
         
         Timer timer = new Timer(delay, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(dailyPanel, "Daily Reminder");
+                JOptionPane.showMessageDialog(dailyPanel, title+ " is due " + deadline);
             }
         });
         timer.start();
