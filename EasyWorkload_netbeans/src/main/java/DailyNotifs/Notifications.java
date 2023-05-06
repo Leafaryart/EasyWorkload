@@ -25,11 +25,7 @@ public class Notifications {
     private void updateFinalLabel(JSlider hourSlider, JSlider minuteSlider, JLabel finalLabel) {
     finalLabel.setText("Selected Time: " + hourSlider.getValue() + " hour/s, " + minuteSlider.getValue() + " minute/s");
 }
-<<<<<<< HEAD
     public static String connectionURL = "static\\app_storage.db";
-=======
-    public static String connectionURL = "C:\\Users\\Teddy IV\\OneDrive\\Desktop\\School Apps\\CSCI 42\\app_storage.db";
->>>>>>> main
     public static TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
     
     public static int taskID;
@@ -41,11 +37,6 @@ public class Notifications {
     public static String is_complete;
     public static String is_late;
     public static String is_subtask_of;
-    
-<<<<<<< HEAD
-=======
-    
->>>>>>> main
     
   public static void main(String[] args) {
       
