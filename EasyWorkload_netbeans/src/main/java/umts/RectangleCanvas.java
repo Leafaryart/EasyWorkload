@@ -357,25 +357,7 @@ public class RectangleCanvas extends JComponent{
                 }
                 else{
                     header.setText(deadline);
-                    
-                    for (int i = 0; i <= taskIDList.size(); i++) {
-                        rs = ttm.getRecord(i);
-                        try {
-                            while (rs.next()) {
-                                title = rs.getString("title");
-                                due = rs.getString("deadline");
-                        
-                        } } catch (SQLException ex) {
-                            Logger.getLogger(EasyWorkload.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        System.out.println(title);
-                       if (deadline.equals(due)) {
-                           attributes1.setText("- "+ title);
-                           
-                       }
-                    
-                    }
-                    
+                    attributes1.setText("- "+ title);
                     attributes2.setText("");
                     attributes3.setText("");
                     attributes4.setText("");
