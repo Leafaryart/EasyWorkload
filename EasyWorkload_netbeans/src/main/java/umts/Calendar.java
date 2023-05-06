@@ -114,6 +114,7 @@ public class Calendar extends javax.swing.JFrame {
         days.add(txtThursday5);
         days.add(txtFriday5);
         days.add(txtSaturday5);
+        System.out.println("Finished running append_days()");
     }
    /**
     * 
@@ -148,6 +149,7 @@ public class Calendar extends javax.swing.JFrame {
                     }
                 }
             }
+        System.out.println("Finished running format_calendar()");
         } catch (Exception e) {
             System.out.println("Something went wrong while formatting");
             e.printStackTrace();
@@ -182,6 +184,7 @@ public class Calendar extends javax.swing.JFrame {
                 }
             }
         }
+        System.out.println("Finished running append_tasks()");
     } catch (SQLException e) {
         e.printStackTrace();
     }
@@ -190,6 +193,7 @@ public class Calendar extends javax.swing.JFrame {
     private void setMonthName() {
         Month month = Month.of(monthNumber);
         lblMonth.setText(month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        System.out.println("Finished running setMonthName()");
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -683,8 +687,11 @@ public class Calendar extends javax.swing.JFrame {
         if (monthNumber < 1) {
             monthNumber = 12;
         }
+        String connectionURL = "static\\app_storage.db";
+        TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+        ResultSet rs = ttm.getAllRecords();
         Calendar newCalendar = new Calendar(rs, monthNumber);
-        newCalendar.appendTasks();
+        this.dispose();
         newCalendar.setVisible(true);    
     }//GEN-LAST:event_prevButtonActionPerformed
 
@@ -693,8 +700,11 @@ public class Calendar extends javax.swing.JFrame {
         if (monthNumber > 12) {
             monthNumber = 1;
         }
+        String connectionURL = "static\\app_storage.db";
+        TaskTableManager ttm = new TaskTableManager("task_list", connectionURL, "taskID");
+        ResultSet rs = ttm.getAllRecords();
         Calendar newCalendar = new Calendar(rs, monthNumber);
-        newCalendar.appendTasks();
+        this.dispose();
         newCalendar.setVisible(true);    
     }//GEN-LAST:event_nextButtonActionPerformed
 
