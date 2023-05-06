@@ -5,8 +5,8 @@
 package sqliteapi;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
 
 /**
  * This class is mainly for testing the SQLiteAPI package if its working
@@ -49,9 +49,11 @@ public class DatabaseTest extends javax.swing.JFrame {
     TaskTableManager ttm;
     
     public DatabaseTest() {
-        String connectionURL = "static\\app_storage.db";
+        String connectionURL = "C:\\Users\\Ray Rafael Abenido\\Desktop\\Rafael\\College\\Ateneo\\Third Year - Second Semester\\CSCI 42 O\\project\\app_storage.db";
         ttm = new TaskTableManager("task_list", connectionURL, "taskID");
         initComponents();
+        populateTable();
+        pack();
     }
 
     @SuppressWarnings("unchecked")
@@ -76,13 +78,16 @@ public class DatabaseTest extends javax.swing.JFrame {
         btnUpdateRecord = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnInsertRecord = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRecords = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(102, 255, 204));
-        setForeground(new java.awt.Color(102, 255, 204));
+        setAutoRequestFocus(false);
+        setForeground(new java.awt.Color(60, 63, 65));
         setMaximumSize(null);
-        setMinimumSize(new java.awt.Dimension(720, 525));
+        setMinimumSize(new java.awt.Dimension(1000, 545));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -152,7 +157,7 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnGetRecord);
-        btnGetRecord.setBounds(520, 160, 170, 40);
+        btnGetRecord.setBounds(220, 410, 170, 40);
         getContentPane().add(txtDescription);
         txtDescription.setBounds(130, 140, 320, 90);
 
@@ -166,7 +171,7 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnUpdateRecord);
-        btnUpdateRecord.setBounds(520, 50, 170, 40);
+        btnUpdateRecord.setBounds(30, 410, 170, 40);
 
         btnDelete.setBackground(new java.awt.Color(0, 0, 0));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -178,7 +183,7 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDelete);
-        btnDelete.setBounds(520, 270, 170, 50);
+        btnDelete.setBounds(30, 450, 170, 50);
 
         btnInsertRecord.setBackground(new java.awt.Color(0, 0, 0));
         btnInsertRecord.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -190,19 +195,35 @@ public class DatabaseTest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnInsertRecord);
-        btnInsertRecord.setBounds(520, 390, 170, 50);
+        btnInsertRecord.setBounds(220, 450, 170, 50);
+
+        tblRecords.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblRecords.setName("tblRecords"); // NOI18N
+        jScrollPane1.setViewportView(tblRecords);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(480, 40, 480, 420);
 
         jLabel7.setIcon(new javax.swing.ImageIcon("static\\task_editor.jpg"));
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 710, 510);
+        jLabel7.setBounds(0, 0, 980, 510);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGetRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetRecordActionPerformed
-        System.out.println(txtID.getText());
-        ResultSet rs = ttm.getRecord(Integer.parseInt(txtID.getText()));
         try {
+            ResultSet rs = ttm.getRecord(Integer.parseInt(txtID.getText()));
             while(rs.next()) {
                 txtID.setText(rs.getString("taskID"));
                 txtTitle.setText(rs.getString("title"));
@@ -211,35 +232,50 @@ public class DatabaseTest extends javax.swing.JFrame {
                 txtDeadline.setText(rs.getString("deadline"));
                 txtisComplete.setText(rs.getString("is_complete"));
                 txtIsLate.setText(rs.getString("is_late"));
+                System.out.println("Got record");
             }
         } catch (Exception e){
+            System.out.println("Failed to get record. See stack trace.");
             e.printStackTrace();
-        }
-        
-        System.out.println("Got record");
+            JOptionPane.showMessageDialog(this, "Could not get specified record. Make sure" +
+                    " ID box has a number and task exists.", "Process Failed", JOptionPane.INFORMATION_MESSAGE);
+
+        }   
     }//GEN-LAST:event_btnGetRecordActionPerformed
 
     private void btnUpdateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRecordActionPerformed
-        int taskID = Integer.parseInt(txtID.getText());
-        String task_title = txtTitle.getText();
-        String description = txtDescription.getText();
-        String date_added = txtDateAdded.getText();
-        String deadline = txtDeadline.getText();
-        String subject = null;
-        Boolean is_complete = Boolean.parseBoolean(txtisComplete.getText());
-        Boolean is_late = Boolean.parseBoolean(txtIsLate.getText());
-        Boolean is_subtask_of = false;
-        String query = ttm.generateUPDATEQuery(taskID, task_title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of);
-        ttm.modifyRecord(query);
-        System.out.println("updated");
+        try {
+            int taskID = Integer.parseInt(txtID.getText());
+            String task_title = txtTitle.getText();
+            String description = txtDescription.getText();
+            String date_added = txtDateAdded.getText();
+            String deadline = txtDeadline.getText();
+            String subject = null;
+            Boolean is_complete = Boolean.parseBoolean(txtisComplete.getText());
+            Boolean is_late = Boolean.parseBoolean(txtIsLate.getText());
+            Boolean is_subtask_of = false;
+            String query = ttm.generateUPDATEQuery(taskID, task_title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of);
+            ttm.modifyRecord(query);
+            System.out.println("updated");
+            populateTable();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Could not update specified record. Make sure" +
+                    " record exists and input correct.", "Process Failed", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnUpdateRecordActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int id = Integer.parseInt(txtID.getText().trim());
-
-        // Delete the record
-         ttm.deleteRecord(id);
-
+        try {
+            // Delete the record
+            int id = Integer.parseInt(txtID.getText().trim());
+            ttm.deleteRecord(id);
+            populateTable();
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Could not delete specified record. Make sure" +
+                    " task exists", "Process Failed", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
         // Update the taskIDs of the following records
         /*ArrayList<Task> tasks = ttm.getAllRecords();
          for (Task task : tasks) {
@@ -251,19 +287,56 @@ public class DatabaseTest extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnInsertRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertRecordActionPerformed
-
-        String task_title = txtTitle.getText();
-        String description = txtDescription.getText();
-        String date_added = txtDateAdded.getText();
-        String deadline = txtDeadline.getText();
-        String subject = null;
-        Boolean is_complete = Boolean.parseBoolean(txtisComplete.getText());
-        Boolean is_late = Boolean.parseBoolean(txtIsLate.getText());
-        Boolean is_subtask_of = false;
-        String query = ttm.generateINSERTQuery(task_title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of);
-        ttm.modifyRecord(query);
+        try {
+            String task_title = txtTitle.getText();
+            String description = txtDescription.getText();
+            String date_added = txtDateAdded.getText();
+            String deadline = txtDeadline.getText();
+            String subject = null;
+            Boolean is_complete = Boolean.parseBoolean(txtisComplete.getText());
+            Boolean is_late = Boolean.parseBoolean(txtIsLate.getText());
+            Boolean is_subtask_of = false;
+            if(task_title.isEmpty() || description.isEmpty() || date_added.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Could not insert new record. Make sure" +
+                    " all input boxes are filled correctly.", "Process Failed", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                String query = ttm.generateINSERTQuery(task_title, description, date_added, deadline, subject, is_complete, is_late, is_subtask_of);
+                ttm.modifyRecord(query);
+                populateTable();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Could not insert new record. Make sure" +
+                    " your input is correct", "Process Failed", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnInsertRecordActionPerformed
 
+    private void populateTable() {
+        ResultSet rs = ttm.getAllRecords();
+        DefaultTableModel model = new DefaultTableModel();
+        // Add columns to the model
+        try {
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                model.addColumn(metaData.getColumnLabel(i));
+            }
+
+        // Add rows to the model
+        while (rs.next()) {
+            Object[] row = new Object[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    row[i - 1] = rs.getObject(i);
+                }
+            model.addRow(row);
+            }
+
+            tblRecords.setModel(model);
+        } catch (Exception e) {
+            System.out.println("Could not populate table. See stack trace");
+            e.printStackTrace();;
+        }
+    }
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -278,6 +351,8 @@ public class DatabaseTest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblRecords;
     private javax.swing.JTextField txtDateAdded;
     private javax.swing.JTextField txtDeadline;
     private javax.swing.JTextField txtDescription;
