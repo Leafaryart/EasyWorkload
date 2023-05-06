@@ -17,7 +17,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.EasyWorkload;
-
+import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.awt.event.ActionEvent;
+import java.util.Calendar;
+import java.time.Duration;
 
 
 
@@ -39,6 +44,8 @@ public class Notifications {
     public static String is_complete;
     public static String is_late;
     public static String is_subtask_of;
+     private static JSpinner dateSpinner = new JSpinner();
+    public static JButton startButton;
     
   public static void main(String[] args) {
       
@@ -101,7 +108,8 @@ public class Notifications {
     JLabel alarmLabel = new JLabel("Alarm");
     alarmLabel.setHorizontalAlignment(JLabel.CENTER);
     alarmPanel.add(alarmLabel, BorderLayout.NORTH);
-
+    
+  
 //make the hour slider
     JSlider hourSlider = new JSlider(JSlider.HORIZONTAL, 0, 23, 0);
     hourSlider.setMajorTickSpacing(4);
@@ -135,8 +143,51 @@ public class Notifications {
     minuteValueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     minuteSlider.addChangeListener(e -> minuteValueLabel.setText(Integer.toString(minuteSlider.getValue()) + " minute/s"));
  
-   
-    
+ // Create a Calendar instance with the current date and time
+Calendar calendar = Calendar.getInstance();
+int currentYear = calendar.get(Calendar.YEAR);
+calendar.set(Calendar.YEAR, currentYear);
+
+// Create a SpinnerDateModel with the initial value set to the current date and time
+SpinnerDateModel dateModel = new SpinnerDateModel(calendar.getTime(), null, null, Calendar.YEAR);
+
+// Create the spinner for the date
+JSpinner dateSpinner = new JSpinner(dateModel);
+dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "MMM dd h:mm a"));
+dateSpinner.setPreferredSize(new Dimension(200, 30));
+dateSpinner.setMaximumSize(new Dimension(200, 30));
+dateSpinner.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+// Create the start button
+JButton startButton = new JButton("Set Alarm");
+startButton.setPreferredSize(new Dimension(100, 30));
+startButton.setMaximumSize(new Dimension(100, 30));
+startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+startButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Date selectedDate = (Date) dateSpinner.getValue();
+        LocalDateTime alarmDateTime = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        System.out.println("Alarm set for " + alarmDateTime);
+        
+        // Set up timer to check if the alarm time has been reached
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LocalDateTime now = LocalDateTime.now();
+                Duration duration = Duration.between(now, alarmDateTime);
+                if (duration.isZero() || duration.isNegative()) {
+                    JOptionPane.showMessageDialog(null, "Alarm has been reached!");
+                    System.out.println("Alarm!");
+                    ((Timer) e.getSource()).stop();
+                }
+            }
+        });
+        
+System.out.println("Timer started"); // Add this line
+        timer.start();
+    }
+});
  //make the final label to display the hours and minutes
 // Create the final label
     JLabel finalLabel = new JLabel("Selected Time: " + hourSlider.getValue() + " hour, " + minuteSlider.getValue() + " minute");
@@ -177,15 +228,25 @@ confirmButton.addActionListener(e -> {
     sliderPanel.add(minuteSlider);
     sliderPanel.add(minuteValueLabel);
     sliderPanel.add(finalLabel);
+    /////////////////////////////////
+    
+    // Create a panel for the spinner and start button
+JPanel bpanel = new JPanel();
+bpanel.setLayout(new BoxLayout(bpanel, BoxLayout.Y_AXIS));
+bpanel.add(dateSpinner);
+bpanel.add(startButton);
+bpanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
 //////////////////////////////////////////////
     alarmPanel.add(sliderPanel);
     alarmPanel.add(confirmButton, BorderLayout.SOUTH);
+    alarmPanel.add(bpanel, BorderLayout.SOUTH);
     
     // FOR LATER
     int hours = hourSlider.getValue();
     int minutes = minuteSlider.getValue();
     
+   
     //
     
 
